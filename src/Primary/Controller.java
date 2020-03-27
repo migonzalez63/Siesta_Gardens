@@ -135,7 +135,7 @@ public class Controller extends Thread {
     // Button press action to spawn a pedestrian
     //
     public void spawnPed(){
-        sim.spawnPed();
+        //sim.spawnPed();
     }
 
     // Button press action to remove all the traffic threads
@@ -174,7 +174,7 @@ public class Controller extends Thread {
                 if (collision && !willEnd) end(); // comment out just this line and you can cause huge car pile up collisions
 
                 sim.drawTraffic(); // loop over all traffic and draw new positions
-                sim.freeTraffic(); // notify all traffic they can move again
+               // sim.freeTraffic(); // notify all traffic they can move again
             }
         }
 
