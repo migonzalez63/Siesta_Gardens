@@ -48,10 +48,9 @@ public class Main extends Application {
         controlLabel.setPrefSize(150, 100);
 
         Button rushButton = new Button("\uD83C\uDF1E Rush Hour");
-        Button heavyButton = new Button("☀ Heavy Traffic");
-        Button moderateButton = new Button("☀ Moderate Traffic");
-        Button malfunctionModeButton= new Button("⚠Malfunction Mode");
-        Button lightButton = new Button("\uD83C\uDF19 Night Mode");
+        Button heavyButton = new Button("☀ Heavy Visitor Traffic");
+        Button moderateButton = new Button("☀ Moderate Visitor Traffic");
+        Button malfunctionModeButton= new Button("⚠Emergency Mode");
         Button spawnCarButton = new Button("Spawn Car");
         Button spawnEmergencyButton = new Button("Spawn Emergency");
         Button spawnPedButton = new Button("Spawn Pedestrian");
@@ -78,7 +77,6 @@ public class Main extends Application {
         malfunctionModeButton.setStyle("-fx-background-color: red;-fx-text-fill: white; -fx-font: 14px Calibri; -fx-border-width: 1;-fx-border-color: black;");
         heavyButton.setStyle("-fx-background-color: #f2740b;-fx-text-fill: white; -fx-font: 14px Calibri; -fx-border-width: 1;-fx-border-color: #e36700;");
         moderateButton.setStyle("-fx-background-color: #f2740b;-fx-text-fill: white; -fx-font: 14px Calibri;-fx-border-width: 1;-fx-border-color: #e36700;");
-        lightButton.setStyle("-fx-background-color: #141852;-fx-text-fill: white; -fx-font: 14px Calibri;-fx-border-width: 1;-fx-border-color: black;");
 
         spawnCarButton.setStyle("-fx-background-color: #ffffff;-fx-text-fill: #1f3d7a; -fx-border-radius: 2; -fx-border-width: 1; -fx-border-color: #1f3d7a; -fx-font: 13px Calibri;");
         spawnEmergencyButton.setStyle("-fx-background-color: #ffffff;-fx-text-fill: #1f3d7a; -fx-border-radius: 2; -fx-border-width: 1; -fx-border-color: #1f3d7a; -fx-font: 13px Calibri;");
@@ -95,52 +93,47 @@ public class Main extends Application {
         malfunctionModeButton.setPrefSize(160, 30);
         heavyButton.setPrefSize(160, 30);
         moderateButton.setPrefSize(160, 30);
-        lightButton.setPrefSize(160, 30);
         spawnCarButton.setPrefSize(160, 30);
         spawnEmergencyButton.setPrefSize(160, 30);
         spawnPedButton.setPrefSize(160, 30);
         resetButton.setPrefSize(160, 30);
 
-        Controller controller = new Controller(gc);
-        controller.start();
+        //Controller controller = new Controller(gc);
+        //controller.start();
 
         // Handle button press actions
         rushButton.setOnMousePressed(e -> {
-            controller.rushMode(controlLabel);
+            //controller.rushMode(controlLabel);
            // DayNight.DAY.setDay(true);
             //controller.setTICSMode(TICSModes.DayMode);
         });
         heavyButton.setOnMousePressed(e -> {
-            controller.heavyMode(controlLabel);
+            //controller.heavyMode(controlLabel);
             //DayNight.DAY.setDay(true);
             //controller.setTICSMode(TICSModes.DayMode);
         });
         moderateButton.setOnMousePressed(e -> {
-            controller.moderateMode(controlLabel);
+            //controller.moderateMode(controlLabel);
            // DayNight.DAY.setDay(true);
             //controller.setTICSMode(TICSModes.DayMode);
 
         });
-        lightButton.setOnMousePressed(e -> {
-            controller.lightMode(controlLabel);
-           // DayNight.DAY.setDay(false);
-           // controller.setTICSMode(TICSModes.NightMode);
-        });
+
         malfunctionModeButton.setOnMousePressed(e -> {
-            controller.malfunctionMode(controlLabel);
+            //controller.malfunctionMode(controlLabel);
 //            DayNight.DAY.setDay(true);
             //controller.setTICSMode(TICSModes.MalfunctionMode);
         });
 
-        spawnCarButton.setOnMousePressed(e -> controller.spawnCar());
-        spawnEmergencyButton.setOnMousePressed(e -> controller.spawnEmergency());
-        spawnPedButton.setOnMousePressed(e -> controller.spawnPed());
-        walkFaster.setOnMousePressed(e -> controller.walkFaster(true, pedSpeedVal));
-        walkSlower.setOnMousePressed(e -> controller.walkFaster(false, pedSpeedVal));
-        driveFaster.setOnMousePressed(e -> controller.driveFaster(true, carSpeedVal));
-        driveSlower.setOnMousePressed(e -> controller.driveFaster(false, carSpeedVal));
+//        spawnCarButton.setOnMousePressed(e -> controller.spawnCar());
+//        spawnEmergencyButton.setOnMousePressed(e -> controller.spawnEmergency());
+//        spawnPedButton.setOnMousePressed(e -> controller.spawnPed());
+//        walkFaster.setOnMousePressed(e -> controller.walkFaster(true, pedSpeedVal));
+//        walkSlower.setOnMousePressed(e -> controller.walkFaster(false, pedSpeedVal));
+//        driveFaster.setOnMousePressed(e -> controller.driveFaster(true, carSpeedVal));
+//        driveSlower.setOnMousePressed(e -> controller.driveFaster(false, carSpeedVal));
         resetButton.setOnMousePressed(e -> {
-            controller.reset();
+            //controller.reset();
             carSpeedVal.setText("1");
             pedSpeedVal.setText("1");
         });
@@ -150,7 +143,7 @@ public class Main extends Application {
         carSpeedBox.getChildren().addAll(carLabel, carSpeedVal, driveFaster, driveSlower);
         pedSpeedBox.getChildren().addAll(pedLabel, pedSpeedVal, walkFaster, walkSlower);
         speedBox.getChildren().addAll(pedSpeedBox, carSpeedBox);
-        controlBox.getChildren().addAll(controlLabel, rushButton, heavyButton, moderateButton, lightButton,malfunctionModeButton, spawnCarButton, spawnEmergencyButton, spawnPedButton, resetButton, resultLabel, speedBox);
+        controlBox.getChildren().addAll(controlLabel, rushButton, heavyButton, moderateButton,malfunctionModeButton, spawnCarButton, spawnEmergencyButton, spawnPedButton, resetButton, resultLabel, speedBox);
         root.setRight(controlBox);
         root.setLeft(canvas);
 
