@@ -1,5 +1,6 @@
 package Primary;
 
+import Graphics.Grounds.ParkGrounds;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -150,6 +151,8 @@ public class Main extends Application {
         Scene scene = new Scene(root, 720, 700);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Traffic Control System: Testbed");
+        ParkGrounds parkground = new ParkGrounds(gc, canvas);
+        parkground.drawGrounds();
         primaryStage.show();
         primaryStage.setOnCloseRequest(event -> {
             System.exit(0);
