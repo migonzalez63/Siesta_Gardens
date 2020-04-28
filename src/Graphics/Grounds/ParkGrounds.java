@@ -38,12 +38,21 @@ public class ParkGrounds {
                 ticketingAreaSize);
 
         //Largest enclosure with gates
+        double enclosureX = outsideCarBorder;
+        double enclosureY = outsideCarBorder;
+        double enclosureWidth = canvas.getWidth()-(2*outsideCarBorder);
+        double enclosureHeight =canvas.getHeight()-outsideCarBorder-bargeSize-ticketingAreaSize;
         gc.setLineWidth(3);
         gc.setFill(Color.LIGHTGREEN);
-        gc.fillRect(outsideCarBorder,outsideCarBorder,canvas.getWidth()-(2*outsideCarBorder),
-                canvas.getHeight()-outsideCarBorder-bargeSize-ticketingAreaSize);
-        gc.strokeRect(outsideCarBorder,outsideCarBorder,canvas.getWidth()-(2*outsideCarBorder),
-                canvas.getHeight()-outsideCarBorder-bargeSize-ticketingAreaSize);
+        gc.fillRect(enclosureX, enclosureY, enclosureWidth, enclosureHeight);
+        gc.strokeRect(enclosureX, enclosureY, enclosureWidth, enclosureHeight);
+        gc.setLineWidth(normalLineWidth);
+
+
+        //Animal Enclosure
+        gc.setLineWidth(3);
+        gc.setStroke(Color.BLACK);
+        gc.strokeOval(enclosureX + enclosureWidth/4, enclosureY+ enclosureHeight/8,enclosureWidth*0.50,enclosureHeight * 0.75);
         gc.setLineWidth(normalLineWidth);
 
         //Car line area

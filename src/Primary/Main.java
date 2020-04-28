@@ -1,6 +1,8 @@
 package Primary;
 
+import Graphics.Grounds.DinoGraphic;
 import Graphics.Grounds.ParkGrounds;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -11,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -152,9 +155,20 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Traffic Control System: Testbed");
         ParkGrounds parkground = new ParkGrounds(gc, canvas);
+        DinoGraphic dino = new DinoGraphic(gc,300,300,720,720);
+
         parkground.drawGrounds();
+
         primaryStage.show();
-        primaryStage.setOnCloseRequest(event -> {
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                parkground.drawGrounds();
+                dino.drawDinosaur();
+
+            }
+        }.start();
+         primaryStage.setOnCloseRequest(event -> {
             System.exit(0);
         });
     }
