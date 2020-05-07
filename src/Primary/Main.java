@@ -1,5 +1,6 @@
 package Primary;
 
+import Graphics.Grounds.CarGraphic;
 import Graphics.Grounds.DinoGraphic;
 import Graphics.Grounds.ParkGrounds;
 import javafx.animation.AnimationTimer;
@@ -156,6 +157,7 @@ public class Main extends Application {
         primaryStage.setTitle("Traffic Control System: Testbed");
         ParkGrounds parkground = new ParkGrounds(gc, canvas);
         DinoGraphic dino = new DinoGraphic(gc,300,300,720,720);
+        CarGraphic car = new CarGraphic(gc,300,300,900,900, 100);
 
         parkground.drawGrounds();
 
@@ -165,6 +167,7 @@ public class Main extends Application {
             public void handle(long now) {
                 parkground.drawGrounds();
                 dino.drawDinosaur();
+                car.drawCar();
 
             }
         }.start();
