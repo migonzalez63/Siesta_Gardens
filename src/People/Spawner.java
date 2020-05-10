@@ -1,15 +1,20 @@
 package People;
 
+import Graphics.Grounds.GuestGraphic;
+import javafx.scene.canvas.GraphicsContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Spawner implements Runnable{
     private int spawnRate;
+    private GraphicsContext gc;
     private List<Guest> arrived;
 
-    public Spawner(int spawnRate){
+    public Spawner(int spawnRate, GraphicsContext gc){
         this.spawnRate = spawnRate;
         arrived = new ArrayList<>();
+        this.gc = gc;
     }
 
     public void setSpawnRate(int spawnRate){
@@ -29,6 +34,13 @@ public class Spawner implements Runnable{
      */
     public void clearGuests(){
         arrived = new ArrayList<>();
+    }
+
+    public void drawGuests(int x){
+        for(int i = 0;i<x;i++){
+            GuestGraphic guest = new GuestGraphic(gc, 100,100);
+
+        }
     }
 
     /**
@@ -58,12 +70,7 @@ public class Spawner implements Runnable{
             }catch(InterruptedException i){
                 i.printStackTrace();
             }
-//            spawnRate -=5;
         }
     }
 
-    public static void main(String[] args){
-        Thread t = new Thread(new Spawner(20));
-        t.start();
-    }
 }
