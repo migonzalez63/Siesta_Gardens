@@ -1,6 +1,7 @@
 package Graphics.Grounds;
 import Dinosaur.Dino;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
@@ -17,8 +18,8 @@ public class DinoGraphic {
 
     public void drawDinosaur(){
         dino.randomWalk();
-        gc.setFill(Color.DARKGREEN);
-        gc.fillOval(dino.getX(),dino.getY(),size,size);
+        Image dinoImage = new Image("/images/dinosaur.png");
+        gc.drawImage(dinoImage,dino.getX(),dino.getY(),size,size);
     }
 
     public Dino getDino() {

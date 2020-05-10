@@ -166,19 +166,21 @@ public class Main extends Application {
         ParkGrounds parkground = new ParkGrounds(gc, canvas);
 
         Rectangle dinoEnclosure = parkground.getDinoEnclosure();
-        DinoGraphic dino = new DinoGraphic(gc,dinoEnclosure,3,25);
+        DinoGraphic dino = new DinoGraphic(gc,dinoEnclosure,3,50);
+
         CarGraphic car = new CarGraphic(gc,260,250,900,900, 170);
         // So this is where I plan to spawn the guests. x = 280, y = 443, So
         // just a bit above it with y = 440 maybe 439 is best.
         GuestHandling gh = new GuestHandling(gc);
         GuestGraphic guest = new GuestGraphic(gc,280,443);
-        parkground.drawGrounds();
+        parkground.drawGrounds(true);
+
         primaryStage.show();
         new AnimationTimer() {
             int x = 0;
             @Override
             public void handle(long now) {
-                parkground.drawGrounds();
+                parkground.drawGrounds(true);
                 dino.drawDinosaur();
                 car.drawCar();
                 // used for testing the drawing, I think this is best way to

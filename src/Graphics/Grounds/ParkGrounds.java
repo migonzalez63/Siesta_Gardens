@@ -1,6 +1,7 @@
 package Graphics.Grounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -10,15 +11,13 @@ public class ParkGrounds {
 
     private final GraphicsContext gc;
     private final Canvas canvas;
-    private boolean gatesOpened;
 
     public ParkGrounds(GraphicsContext gc, Canvas canvas){
         this.gc = gc;
         this.canvas=canvas;
-        this.gatesOpened=false;
     }
 
-    public void drawGrounds(){
+    public void drawGrounds(boolean emergency){
         int bargeSize=60;
         int ticketingAreaSize=40;
         int outsideCarBorder=50;
@@ -61,9 +60,9 @@ public class ParkGrounds {
 
         //Automatic Gates for Largest enclosure
         //Switch the color (and size of the line of gate) depending on gate enacted or not
-        if (gatesOpened){
+        if (emergency){
             gc.setLineWidth(normalLineWidth);
-            gc.setStroke(Color.BLACK);
+            gc.setStroke(Color.rgb(201,201,201));
         }
         else {
             gc.setLineWidth(6);
@@ -105,11 +104,11 @@ public class ParkGrounds {
 
         //Oval Animal Enclosure
         gc.setFill(Color.rgb(0,138,0));
-        gc.fillOval(outsideCarBorder+150, outsideCarBorder+90,
+        gc.fillOval(outsideCarBorder+150, outsideCarBorder+110,
                 canvas.getWidth()-(2*outsideCarBorder)-280,
                 200);
         gc.setLineWidth(4);
-        gc.strokeOval(outsideCarBorder+150, outsideCarBorder+90,
+        gc.strokeOval(outsideCarBorder+150, outsideCarBorder+110,
                 canvas.getWidth()-(2*outsideCarBorder)-280,
                 200);
 
@@ -134,6 +133,12 @@ public class ParkGrounds {
         // Top Parking Space
         gc.fillRect(250,100,
                 60,55);
+
+        if (emergency){
+            Image boatImage = new Image("/images/boat.jpg");
+            gc.drawImage(boatImage,0,canvas.getHeight()-55, 100, 50);
+            gc.drawImage(boatImage,canvas.getWidth()-100,canvas.getHeight()-55, 100, 50);
+        }
     }
 
     public Rectangle getDinoEnclosure(){
