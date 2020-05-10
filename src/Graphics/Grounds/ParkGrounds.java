@@ -134,6 +134,8 @@ public class ParkGrounds {
         gc.fillRect(250,100,
                 60,55);
 
+
+
         if (emergency){
             Image boatImage = new Image("/images/boat.jpg");
             gc.drawImage(boatImage,0,canvas.getHeight()-55, 100, 50);
@@ -151,7 +153,8 @@ public class ParkGrounds {
         double enclosureWidth = canvas.getWidth()-(2*outsideCarBorder);
         double enclosureHeight =canvas.getHeight()-outsideCarBorder-bargeSize-ticketingAreaSize;
         //lotta magic numbers here
-        return new Rectangle(enclosureX + enclosureWidth*.38, enclosureY+ enclosureHeight/3,enclosureWidth*0.29,enclosureHeight * 0.29);
+        int offset = 10;
+        return new Rectangle(enclosureX + enclosureWidth*.38+ offset, enclosureY+ enclosureHeight/3 + 20,enclosureWidth*0.25,enclosureHeight * 0.25);
 
 
     }
