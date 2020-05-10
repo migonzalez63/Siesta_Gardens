@@ -4,7 +4,7 @@ import org.w3c.dom.css.Rect;
 /*todo
     line up circle
     figure out how long the car should stop for
-
+    change car speed to relate to speed attribute
  */
 
 public class Car {
@@ -38,14 +38,16 @@ public class Car {
 
     //moves the car in a circle around the enclosure
     public void beginRoute(){
-        double angle = Math.atan2(this.getY(),this.getX());
-        if(angle < 0){
-            angle += 2*Math.PI;
+        if(!this.isLocked()) {
+            double angle = Math.atan2(this.getY(), this.getX());
+            if (angle < 0) {
+                angle += 2 * Math.PI;
+            }
+            //System.out.println("x = " + this.getX() + ", y = " + this.getY() + ", theta = " + angle);
+            //update angle
+            angle -= Math.PI / 100; //todo change this to relate to speed attribute
+            this.setX(Math.cos(angle));
+            this.setY(Math.sin(angle));
         }
-        //System.out.println("x = " + this.getX() + ", y = " + this.getY() + ", theta = " + angle);
-        //update angle
-        angle += Math.PI/100; //todo change this to relate to speed attribute
-        this.setX(Math.cos(angle));
-        this.setY(Math.sin(angle));
     }
 }
