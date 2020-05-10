@@ -18,7 +18,7 @@ public class CarGraphic {
         this.movingRadius = movingRadius;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
-        this.car = new Car(false,false,0,-1,1);
+        this.car = new Car(true,true,0,-1,1);
     }
 
     public void drawCar(){
