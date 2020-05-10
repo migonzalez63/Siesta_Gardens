@@ -2,6 +2,7 @@ package Primary;
 
 import Graphics.Grounds.CarGraphic;
 import Graphics.Grounds.DinoGraphic;
+import Graphics.Grounds.GuestGraphic;
 import Graphics.Grounds.ParkGrounds;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -154,11 +155,12 @@ public class Main extends Application {
 
         Scene scene = new Scene(root, 720, 700);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Traffic Control System: Testbed");
+        primaryStage.setTitle("Siesta Garden Control System: Testbed");
         ParkGrounds parkground = new ParkGrounds(gc, canvas);
         DinoGraphic dino = new DinoGraphic(gc,300,300,720,720);
-        CarGraphic car = new CarGraphic(gc,270,235,900,900, 165);
-
+        CarGraphic car = new CarGraphic(gc,300,300,900,900, 100);
+        // So this is where I plan to spawn the guests.
+        GuestGraphic guest = new GuestGraphic(gc,280,443);
         parkground.drawGrounds();
 
         primaryStage.show();
@@ -168,7 +170,7 @@ public class Main extends Application {
                 parkground.drawGrounds();
                 dino.drawDinosaur();
                 car.drawCar();
-
+                guest.initialSpawn();
             }
         }.start();
          primaryStage.setOnCloseRequest(event -> {

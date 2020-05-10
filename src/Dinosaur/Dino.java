@@ -1,5 +1,6 @@
 package Dinosaur;
 
+import Primary.Direction;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Random;
@@ -14,12 +15,7 @@ public class Dino {
     private int maxY;
     private int speed;
     private Rectangle walkingArea;
-    enum Direction{
-        NORTH,
-        SOUTH,
-        EAST,
-        WEST
-    };
+
     public Dino(Rectangle walkingArea, int speed,int x, int y){
         this.walkingArea = walkingArea;
         this.speed = speed;
