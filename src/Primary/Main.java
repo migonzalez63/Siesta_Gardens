@@ -158,7 +158,7 @@ public class Main extends Application {
         primaryStage.setTitle("Siesta Garden Control System: Testbed");
         ParkGrounds parkground = new ParkGrounds(gc, canvas);
         DinoGraphic dino = new DinoGraphic(gc,300,300,720,720);
-        CarGraphic car = new CarGraphic(gc,300,300,900,900, 100);
+        CarGraphic car = new CarGraphic(gc,260,250,900,900, 170);
         // So this is where I plan to spawn the guests.
         GuestGraphic guest = new GuestGraphic(gc,280,443);
         parkground.drawGrounds();
