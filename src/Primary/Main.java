@@ -16,6 +16,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -157,7 +159,10 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Siesta Garden Control System: Testbed");
         ParkGrounds parkground = new ParkGrounds(gc, canvas);
-        DinoGraphic dino = new DinoGraphic(gc,300,300,720,720);
+
+        Rectangle dinoEnclosure = parkground.getDinoEnclosure();
+        DinoGraphic dino = new DinoGraphic(gc,dinoEnclosure,3,25);
+
         CarGraphic car = new CarGraphic(gc,260,250,900,900, 170);
         // So this is where I plan to spawn the guests.
         GuestGraphic guest = new GuestGraphic(gc,280,443);

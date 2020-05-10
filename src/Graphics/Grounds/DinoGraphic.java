@@ -2,25 +2,26 @@ package Graphics.Grounds;
 import Dinosaur.Dino;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 
 public class DinoGraphic {
     private Dino dino;
-    private Rectangle drawingArea;
     private GraphicsContext gc;
-    private int ovalWidth,ovalHeight = 100;
-    public DinoGraphic(GraphicsContext gc, int posX, int posY, int width, int height){
+    private int size;
+    public DinoGraphic(GraphicsContext gc, Rectangle walkingArea,int speed,int size){
         this.gc = gc;
-        this.drawingArea = new Rectangle(posX,posY,width,height);
-        this.dino = new Dino(drawingArea,1,posX,posY);
+        this.dino = new Dino(walkingArea,speed,size);
+        this.size = size;
     }
 
     public void drawDinosaur(){
         dino.randomWalk();
         gc.setFill(Color.DARKGREEN);
-        gc.fillOval(dino.getX(),dino.getY(),50,50);
+        gc.fillOval(dino.getX(),dino.getY(),size,size);
     }
 
-
-
+    public Dino getDino() {
+        return dino;
+    }
 }

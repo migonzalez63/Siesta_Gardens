@@ -2,6 +2,9 @@ package Graphics.Grounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
+import java.awt.*;
 
 public class ParkGrounds {
 
@@ -131,5 +134,20 @@ public class ParkGrounds {
         // Top Parking Space
         gc.fillRect(250,100,
                 60,55);
+    }
+
+    public Rectangle getDinoEnclosure(){
+        int bargeSize=60;
+        int ticketingAreaSize=40;
+        int outsideCarBorder=50;
+        //Largest enclosure with gates
+        double enclosureX = outsideCarBorder;
+        double enclosureY = outsideCarBorder;
+        double enclosureWidth = canvas.getWidth()-(2*outsideCarBorder);
+        double enclosureHeight =canvas.getHeight()-outsideCarBorder-bargeSize-ticketingAreaSize;
+        //lotta magic numbers here
+        return new Rectangle(enclosureX + enclosureWidth*.38, enclosureY+ enclosureHeight/3,enclosureWidth*0.29,enclosureHeight * 0.29);
+
+
     }
 }
