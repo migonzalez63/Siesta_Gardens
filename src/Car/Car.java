@@ -81,8 +81,20 @@ public class Car {
             this.setX(Math.cos(angle));
             this.setY(Math.sin(angle));
 
-            //check to see if we've reached the first observation area
+            //check to see if we've reached the first observation area and stop the car
             if(this.getX() > .999999 && this.getY() > -.0000001 && this.getY() < .0000001){
+                //stop car and unload passengers
+                this.stopCar();
+                System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
+            }
+            //check to see if we've reached the second observation area and stop the car
+            if(this.getY() > .999999 && this.getX() > -.0000001 && this.getX() < .0000001){
+                //stop car and unload passengers
+                this.stopCar();
+                System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
+            }
+            //check to see if we've reached the third observation area and stop the car
+            if(this.getX() < -.999999 && this.getY() > -.0000001 && this.getY() < .0000001){
                 //stop car and unload passengers
                 this.stopCar();
                 System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
