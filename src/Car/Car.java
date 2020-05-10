@@ -1,20 +1,23 @@
 package Car;
 import javafx.scene.shape.Rectangle;
 import org.w3c.dom.css.Rect;
+/*todo
+    line up circle
+    figure out how long the car should stop for
+
+ */
 
 public class Car {
 
     private boolean locked;
     private boolean moving;
-    private Rectangle movingArea;
     private double x;
     private double y;
     private int speed;
 
-    public Car(boolean locked, boolean moving, Rectangle movingArea, double x, double y, int speed) {
+    public Car(boolean locked, boolean moving, double x, double y, int speed) {
         this.locked = locked;
         this.moving = moving;
-        this.movingArea = movingArea;
         this.x = x;
         this.y = y;
         this.speed = speed;
