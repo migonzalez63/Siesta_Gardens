@@ -7,12 +7,16 @@ import java.util.*;
 public class Guest {
     private int x;
     private int y;
+    private int retX;
+    private int retY;
     public int speed;
 
-    public Guest(int x, int y, int speed){
+    public Guest(int x, int y, int speed,int retX, int retY){
         this.x = x;
         this.y = y;
         this.speed = speed;
+        this.retX = retX;
+        this.retY = retY;
     }
 
 
@@ -32,11 +36,14 @@ public class Guest {
         return y;
     }
 
-    public void observationWalk(){
+    /**
+     * Used for random walking but need to limit area of walking still.
+     */
+    public void observationWalk() {
         Random random = new Random();
         List<Direction> dirs =
                 new ArrayList<Direction>(EnumSet.allOf(Direction.class));
-        switch (dirs.get(random.nextInt(4))){
+        switch (dirs.get(random.nextInt(4))) {
             case NORTH:
                 this.y -= speed;
                 break;
@@ -52,12 +59,33 @@ public class Guest {
         }
     }
 
-    public void boardingWalk(){
+    /**
+     * Here the guest returns back to the car, in reality this could be used
+     * for unboarding.
+     * @param retX Return point x
+     * @param retY Return point y
+     * @return boolean determining if at return point.
+     */
+    public boolean walkToPoint(int retX, int retY){
+        if(atRetPoint()) return true;
+        if(x<retX) x++;
+        if(x>retX) x--;
+        if(y>retY) y--;
+        if(y<retY) y++;
+
+        return false;
+    }
+
+    public void unboardWalk(){
 
     }
 
-    public void unboardingWalk(){
-
+    /**
+     * Checks if guest has arrived at spawn point.
+     * @return
+     */
+    public boolean atRetPoint(){
+        return x == retX && y == retY;
     }
 
 }

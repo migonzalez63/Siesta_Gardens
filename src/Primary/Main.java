@@ -4,6 +4,7 @@ import Graphics.Grounds.CarGraphic;
 import Graphics.Grounds.DinoGraphic;
 import Graphics.Grounds.GuestGraphic;
 import Graphics.Grounds.ParkGrounds;
+import People.Guest;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -20,6 +21,9 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends Application {
 
@@ -158,24 +162,38 @@ public class Main extends Application {
         Scene scene = new Scene(root, 720, 700);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Siesta Garden Control System: Testbed");
+//        List<Guest>
         ParkGrounds parkground = new ParkGrounds(gc, canvas);
 
         Rectangle dinoEnclosure = parkground.getDinoEnclosure();
         DinoGraphic dino = new DinoGraphic(gc,dinoEnclosure,3,25);
-
         CarGraphic car = new CarGraphic(gc,260,250,900,900, 170);
-        // So this is where I plan to spawn the guests.
+        // So this is where I plan to spawn the guests. x = 280, y = 443, So
+        // just a bit above it with y = 440 maybe 439 is best.
+        GuestHandling gh = new GuestHandling(gc);
         GuestGraphic guest = new GuestGraphic(gc,280,443);
         parkground.drawGrounds();
-
         primaryStage.show();
         new AnimationTimer() {
+            int x = 0;
             @Override
             public void handle(long now) {
                 parkground.drawGrounds();
                 dino.drawDinosaur();
                 car.drawCar();
-                guest.initialSpawn();
+                // used for testing the drawing, I think this is best way to
+                // draw based on this animation timer.
+                if(x<300){
+                    gh.drawLeft();
+                    gh.drawRight();
+                    gh.drawTop();
+                }
+                if (x > 300){
+                    gh.returnLeft();
+                    gh.returnRight();
+                    gh.returnTop();
+                }
+                x++;
             }
         }.start();
          primaryStage.setOnCloseRequest(event -> {
