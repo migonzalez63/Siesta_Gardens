@@ -39,7 +39,76 @@ public class Guest {
     /**
      * Used for random walking but need to limit area of walking still.
      */
-    public void observationWalk() {
+    public void observationWalk(String area) {
+        int areaWidth, areaHeight, minX, minY, maxX, maxY;
+
+        generateRandomWalk();
+
+        switch (area) {
+            case "top":
+                areaWidth = 60;
+                areaHeight = 55;
+
+                minX = 250;
+                minY =  100;
+                maxX = minX + areaWidth;
+                maxY = minY + areaHeight;
+
+                correctGuestWalk(minX, minY, maxX, maxY);
+
+                return;
+            case "left":
+                areaWidth = 55;
+                areaHeight = 60;
+
+                minX = 140;
+                minY =  195;
+                maxX = minX + areaWidth;
+                maxY = minY + areaHeight;
+
+                correctGuestWalk(minX, minY, maxX, maxY);
+
+                return;
+
+            case "right":
+                areaWidth = 55;
+                areaHeight = 60;
+
+                minX = 375;
+                minY = 195;
+                maxX = minX + areaWidth;
+                maxY = minY + areaHeight;
+
+                correctGuestWalk(minX, minY, maxX, maxY);
+        }
+
+    }
+
+    /**
+     * Corrects the pathing of the guest walks if they go out of the bounds of the parking area
+     * @param minX
+     * @param minY
+     * @param maxX
+     * @param maxY
+     */
+    private void correctGuestWalk(int minX, int minY, int maxX, int maxY) {
+        if(this.x > maxX) {
+            this.x = maxX - 10;
+        } else if(this.x < minX) {
+            this.x = minX + 10;
+        }
+
+        if(this.y > maxY) {
+            this.y = maxY - 10;
+        } else if(this.y < minY) {
+            this.y = minY + 10;
+        }
+    }
+
+    /**
+     * Generates random walking for the pedestrian
+     */
+    public void generateRandomWalk() {
         Random random = new Random();
         List<Direction> dirs =
                 new ArrayList<Direction>(EnumSet.allOf(Direction.class));
