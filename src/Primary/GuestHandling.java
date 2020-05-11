@@ -1,6 +1,7 @@
 package Primary;
 
 import Graphics.Grounds.GuestGraphic;
+import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -17,9 +18,83 @@ public class GuestHandling {
     private List<GuestGraphic> topViewing;
     private GraphicsContext gc;
     private final int carMax = 10;
+    private final int timeAtObservations = 400;
+    private final int spawnTime = 500;
     private Point leftParking = new Point(140,214);
     private Point rightParking = new Point(423,214);
     private Point topParking = new Point(270,100);
+
+    public void startDrawingLeftObservation(){
+        new  AnimationTimer(){
+            int x = 0;
+            @Override
+            public void handle(long now){
+                if(x<timeAtObservations){
+                    drawLeft();
+                }
+                if (x > timeAtObservations){
+                    returnLeft();
+                }
+                if(readyToDespawn(leftViewing)) this.stop();
+                x++;
+            }
+        }.start();
+    }
+
+    public void startDrawingRightObservation(){
+        new AnimationTimer(){
+            int x = 0;
+            @Override
+            public void handle(long now){
+                if(x<timeAtObservations){
+                    drawRight();
+                }
+                if (x > timeAtObservations){
+                    returnRight();
+                }
+                if(readyToDespawn(rightViewing)) this.stop();
+                x++;
+            }
+        }.start();
+    }
+
+    public void startDrawingTopObservation(){
+        new AnimationTimer(){
+            int x = 0;
+            @Override
+            public void handle(long now){
+                if(x<timeAtObservations){
+                    drawTop();
+                }
+                if (x > timeAtObservations){
+                    returnTop();
+                }
+                if(readyToDespawn(topViewing)) this.stop();
+                x++;
+            }
+        }.start();
+    }
+
+    public void startSpawning(){
+        new AnimationTimer(){
+            int x = 0;
+            @Override
+            public void handle(long now){
+                if(x<10){
+                    gc.setFill(Color.ORANGE);
+                    gc.fillOval(280,443, 6, 6);
+                    gc.setFill(Color.DIMGREY);
+                    gc.fillRect(280,443,7,7);
+                    System.out.println("drawn");
+                }
+
+                if(x>=10){
+                    this.stop();
+                }
+                x++;
+            }
+        }.start();
+    }
 
     public GuestHandling(GraphicsContext gc){
         this.gc = gc;
@@ -29,10 +104,17 @@ public class GuestHandling {
         initialize();
     }
 
+
+    private void drawSpawn(){
+        for(int i = 0;i < 10;i++){
+
+        }
+    }
+
     /**
      * draws the guests in the left parking area.
      */
-    public void drawLeft(){
+    private void drawLeft(){
         for(GuestGraphic g: leftViewing){
             g.observationDraw();
         }
@@ -41,7 +123,7 @@ public class GuestHandling {
     /**
      * draws the guests in the right parking area.
      */
-    public void drawRight(){
+    private void drawRight(){
         for(GuestGraphic g: rightViewing){
             g.observationDraw();
         }
@@ -50,7 +132,7 @@ public class GuestHandling {
     /**
      * draws the guests in the top parking area.
      */
-    public void drawTop(){
+    private void drawTop(){
         for(GuestGraphic g: topViewing){
             g.observationDraw();
         }
@@ -59,7 +141,7 @@ public class GuestHandling {
     /**
      * Makes the guests in the left parking area return to the spawn point.
      */
-    public void returnLeft(){
+    private void returnLeft(){
         for(GuestGraphic g: leftViewing){
             g.walkToPointDraw(leftParking.x,leftParking.y);
             if(readyToDespawn(leftViewing)) redrawLeftParking();
@@ -69,7 +151,7 @@ public class GuestHandling {
     /**
      * Makes the guests in the right parking area return to their spawn point.
      */
-    public void returnRight(){
+    private void returnRight(){
         for(GuestGraphic g: rightViewing){
             g.walkToPointDraw(rightParking.x,rightParking.y);
             if(readyToDespawn(rightViewing)) redrawRightParking();
@@ -79,7 +161,7 @@ public class GuestHandling {
     /**
      * Makes the guests in the top parking area return to their spawn point.
      */
-    public void returnTop(){
+    private void returnTop(){
         for(GuestGraphic g: topViewing){
             g.walkToPointDraw(topParking.x,topParking.y);
             if(readyToDespawn(topViewing)) redrawTopParking();

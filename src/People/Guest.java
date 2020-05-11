@@ -106,15 +106,15 @@ public class Guest {
      */
     private void correctGuestWalk(int minX, int minY, int maxX, int maxY) {
         if(this.x > maxX) {
-            this.x = maxX - 10;
+            this.x = maxX - 3;
         } else if(this.x < minX) {
-            this.x = minX + 10;
+            this.x = minX + 3;
         }
 
         if(this.y > maxY) {
-            this.y = maxY - 10;
+            this.y = maxY - 3;
         } else if(this.y < minY) {
-            this.y = minY + 10;
+            this.y = minY + 3;
         }
     }
 

@@ -41,8 +41,9 @@ public class Main extends Application {
         // the controller with something to draw on
         BorderPane root = new BorderPane();
         Canvas canvas = new Canvas(550, 550);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
 
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        GuestHandling gh = new GuestHandling(gc);
         VBox controlBox = new VBox(20);
         HBox speedBox = new HBox(10);
         VBox pedSpeedBox = new VBox(10);
@@ -135,6 +136,10 @@ public class Main extends Application {
             //controller.malfunctionMode(controlLabel);
 //            DayNight.DAY.setDay(true);
             //controller.setTICSMode(TICSModes.MalfunctionMode);
+            gh.startDrawingLeftObservation();
+            gh.startDrawingRightObservation();
+            gh.startDrawingTopObservation();
+//            gh.startSpawning();
         });
 
 //        spawnCarButton.setOnMousePressed(e -> controller.spawnCar());
@@ -171,36 +176,16 @@ public class Main extends Application {
         CarGraphic car = new CarGraphic(gc,260,250,900,900, 170);
         // So this is where I plan to spawn the guests. x = 280, y = 443, So
         // just a bit above it with y = 440 maybe 439 is best.
-        GuestHandling gh = new GuestHandling(gc);
+//        GuestHandling gh = new GuestHandling(gc);
         parkground.drawGrounds(true);
 
         primaryStage.show();
         new AnimationTimer() {
-            int x = 0;
             @Override
             public void handle(long now) {
                 parkground.drawGrounds(true);
                 dino.drawDinosaur();
                 car.drawCar();
-                // used for testing the drawing, I think this is best way to
-                // draw based on this animation timer.
-                // Miguel: Removed timer in order to test out pedestrian walking
-//                if(x<300){
-//                    gh.drawLeft();
-//                    gh.drawRight();
-//                    gh.drawTop();
-//                }
-//                if (x > 300){
-//                    gh.returnLeft();
-//                    gh.returnRight();
-//                    gh.returnTop();
-//                }
-
-                // Added to test pedestrian walking
-                gh.drawLeft();
-                gh.drawRight();
-                gh.drawTop();
-                x++;
             }
         }.start();
          primaryStage.setOnCloseRequest(event -> {

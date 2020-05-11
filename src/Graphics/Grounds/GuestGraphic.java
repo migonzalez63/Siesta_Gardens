@@ -38,11 +38,6 @@ public class GuestGraphic {
     }
 
 
-    public void despawnBoarding(){
-        gc.setFill(Color.DIMGREY);
-        gc.fillOval(guest.getX(),guest.getY(),size,size);
-    }
-
     /**
      * Draws the guests walking back to spawn point.
      * @param x OG spawn point.
