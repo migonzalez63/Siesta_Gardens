@@ -120,10 +120,10 @@ public class GuestHandling {
      */
     private void initialize(){
         for(int i = 0;i < carMax;i++){
-            leftViewing.add(new GuestGraphic(gc, leftParking.x,leftParking.y));
+            leftViewing.add(new GuestGraphic(gc, leftParking.x,leftParking.y, "left"));
             rightViewing.add(new GuestGraphic(gc,rightParking.x,
-                    rightParking.y));
-            topViewing.add(new GuestGraphic(gc, topParking.x,topParking.y));
+                    rightParking.y, "right"));
+            topViewing.add(new GuestGraphic(gc, topParking.x,topParking.y, "top"));
         }
     }
 

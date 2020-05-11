@@ -185,16 +185,22 @@ public class Main extends Application {
                 car.drawCar();
                 // used for testing the drawing, I think this is best way to
                 // draw based on this animation timer.
-                if(x<300){
-                    gh.drawLeft();
-                    gh.drawRight();
-                    gh.drawTop();
-                }
-                if (x > 300){
-                    gh.returnLeft();
-                    gh.returnRight();
-                    gh.returnTop();
-                }
+                // Miguel: Removed timer in order to test out pedestrian walking
+//                if(x<300){
+//                    gh.drawLeft();
+//                    gh.drawRight();
+//                    gh.drawTop();
+//                }
+//                if (x > 300){
+//                    gh.returnLeft();
+//                    gh.returnRight();
+//                    gh.returnTop();
+//                }
+
+                // Added to test pedestrian walking
+                gh.drawLeft();
+                gh.drawRight();
+                gh.drawTop();
                 x++;
             }
         }.start();
