@@ -118,6 +118,9 @@ public class Main extends Application {
         rushButton.setOnMousePressed(e -> {
             //controller.rushMode(controlLabel);
             // DayNight.DAY.setDay(true);
+            gh.startDrawingLeftObservation();
+            gh.startDrawingRightObservation();
+            gh.startDrawingTopObservation();
             //controller.setTICSMode(TICSModes.DayMode);
         });
         heavyButton.setOnMousePressed(e -> {
@@ -129,6 +132,7 @@ public class Main extends Application {
             //controller.moderateMode(controlLabel);
             // DayNight.DAY.setDay(true);
             //controller.setTICSMode(TICSModes.DayMode);
+            gh.returnGuestsToVehicles("right");
 
         });
 
@@ -136,9 +140,7 @@ public class Main extends Application {
             //controller.malfunctionMode(controlLabel);
 //            DayNight.DAY.setDay(true);
             //controller.setTICSMode(TICSModes.MalfunctionMode);
-            gh.startDrawingLeftObservation();
-            gh.startDrawingRightObservation();
-            gh.startDrawingTopObservation();
+            gh.returnGuestsToVehicles("all");
 //            gh.startSpawning();
         });
 

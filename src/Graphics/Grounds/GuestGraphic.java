@@ -50,8 +50,9 @@ public class GuestGraphic {
         return ret;
     }
 
-    public void unboardDraw(){
-
+    public void changeRetPoints(int retX, int retY){
+        guest.setRetX(retX);
+        guest.setRetY(retY);
     }
 
     /**

@@ -27,7 +27,6 @@ public class Guest {
         this.speed = speed;
         this.retX = retX;
         this.retY = retY;
-
     }
 
 
@@ -45,6 +44,14 @@ public class Guest {
 
     public int getY() {
         return y;
+    }
+
+    public void setRetX(int retX) {
+        this.retX = retX;
+    }
+
+    public void setRetY(int retY) {
+        this.retY = retY;
     }
 
     /**

@@ -16,6 +16,7 @@ public class GuestHandling {
     private List<GuestGraphic> leftViewing;
     private List<GuestGraphic> rightViewing;
     private List<GuestGraphic> topViewing;
+    private List<GuestGraphic> spawnPoint;
     private GraphicsContext gc;
     private final int carMax = 10;
     private final int timeAtObservations = 400;
@@ -23,57 +24,100 @@ public class GuestHandling {
     private Point leftParking = new Point(140,214);
     private Point rightParking = new Point(423,214);
     private Point topParking = new Point(270,100);
+    private Point spawn = new Point(280,443);
+    private AnimationTimer leftPark, rightPark, topPark, spawnPark;
 
+
+    public GuestHandling(GraphicsContext gc){
+        this.gc = gc;
+        this.leftViewing = new ArrayList<>();
+        this.topViewing = new ArrayList<>();
+        this.rightViewing = new ArrayList<>();
+        this.spawnPoint = new ArrayList<>();
+        initialize();
+    }
+
+    /**
+     * Handles drawing of guest walking around left observation area.
+     */
     public void startDrawingLeftObservation(){
-        new  AnimationTimer(){
-            int x = 0;
+        leftPark = new  AnimationTimer(){
             @Override
             public void handle(long now){
-                if(x<timeAtObservations){
-                    drawLeft();
-                }
-                if (x > timeAtObservations){
-                    returnLeft();
-                }
-                if(readyToDespawn(leftViewing)) this.stop();
-                x++;
+                drawLeft();
             }
-        }.start();
+        };
+        leftPark.start();
     }
 
+    /**
+     * Handles drawing of guest walking around right observation area.
+     */
     public void startDrawingRightObservation(){
-        new AnimationTimer(){
-            int x = 0;
+        rightPark = new  AnimationTimer(){
             @Override
             public void handle(long now){
-                if(x<timeAtObservations){
-                    drawRight();
+                drawRight();
+            }
+        };
+        rightPark.start();
+    }
+
+    /**
+     * Handles drawing of guest walking around top observation area.
+     */
+    public void startDrawingTopObservation(){
+       topPark = new AnimationTimer(){
+            @Override
+            public void handle(long now){
+                drawTop();
+            }
+        };
+       topPark.start();
+    }
+
+    /**
+     * Handles returning guests to the vehicles. 4 inputs: "left" returns the
+     * left parking area guests, "right" returns the right parking area
+     * guests, "top" returns the top parking area guests, and anything else
+     * will be deemed an emergency and return all guests to the vehicles.
+     * @param area Parking area where guests need to return to vehicle.
+     */
+    public void returnGuestsToVehicles(String area){
+        if(area.equals("left")) leftPark.stop();
+        else if(area.equals("right")) rightPark.stop();
+        else if(area.equals("top")) topPark.stop();
+        else{
+            leftPark.stop();
+            rightPark.stop();
+            topPark.stop();
+        }
+
+        new AnimationTimer(){
+            @Override
+            public void handle(long now){
+                if(area.equals("left")){
+                    returnLeft();
+                    if(readyToDespawn(leftViewing)) this.stop();
                 }
-                if (x > timeAtObservations){
+                else if(area.equals("right")){
                     returnRight();
+                    if(readyToDespawn(rightViewing)) this.stop();
                 }
-                if(readyToDespawn(rightViewing)) this.stop();
-                x++;
+                else if(area.equals("top")){
+                    returnTop();
+                    if(readyToDespawn(topViewing)) this.stop();
+                }
+                else{
+                    returnLeft();
+                    returnRight();
+                    returnTop();
+                    if(allClear())this.stop();
+                }
             }
         }.start();
     }
 
-    public void startDrawingTopObservation(){
-        new AnimationTimer(){
-            int x = 0;
-            @Override
-            public void handle(long now){
-                if(x<timeAtObservations){
-                    drawTop();
-                }
-                if (x > timeAtObservations){
-                    returnTop();
-                }
-                if(readyToDespawn(topViewing)) this.stop();
-                x++;
-            }
-        }.start();
-    }
 
     public void startSpawning(){
         new AnimationTimer(){
@@ -95,15 +139,6 @@ public class GuestHandling {
             }
         }.start();
     }
-
-    public GuestHandling(GraphicsContext gc){
-        this.gc = gc;
-        this.leftViewing = new ArrayList<>();
-        this.topViewing = new ArrayList<>();
-        this.rightViewing = new ArrayList<>();
-        initialize();
-    }
-
 
     private void drawSpawn(){
         for(int i = 0;i < 10;i++){
@@ -210,6 +245,7 @@ public class GuestHandling {
             rightViewing.add(new GuestGraphic(gc,rightParking.x,
                     rightParking.y, "right"));
             topViewing.add(new GuestGraphic(gc, topParking.x,topParking.y, "top"));
+            spawnPoint.add(new GuestGraphic(gc,spawn.x,spawn.y, "spawn"));
         }
     }
 
