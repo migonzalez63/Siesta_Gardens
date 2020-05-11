@@ -172,7 +172,6 @@ public class Main extends Application {
         // So this is where I plan to spawn the guests. x = 280, y = 443, So
         // just a bit above it with y = 440 maybe 439 is best.
         GuestHandling gh = new GuestHandling(gc);
-        GuestGraphic guest = new GuestGraphic(gc,280,443);
         parkground.drawGrounds(true);
 
         primaryStage.show();

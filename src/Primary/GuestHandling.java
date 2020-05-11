@@ -8,6 +8,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Deals with the drawing of the guests and related objects.
+ */
 public class GuestHandling {
     private List<GuestGraphic> leftViewing;
     private List<GuestGraphic> rightViewing;
@@ -112,6 +115,7 @@ public class GuestHandling {
         gc.setFill(Color.rgb(100, 118, 135));
         gc.fillRect(250,100,
                 60,55);
+
     }
 
     /**
@@ -138,5 +142,9 @@ public class GuestHandling {
             if(!l.readytoDespawn()) return false;
         }
         return true;
+    }
+
+    public boolean allClear(){
+        return readyToDespawn(leftViewing) && readyToDespawn(rightViewing) && readyToDespawn(topViewing);
     }
 }

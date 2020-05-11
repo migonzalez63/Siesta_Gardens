@@ -11,12 +11,23 @@ public class Guest {
     private int retY;
     public int speed;
 
-    public Guest(int x, int y, int speed,int retX, int retY){
+    //    left parking
+//    gc.fillRect(140,195,
+//            55,60);
+//    // Right Parking Space
+//        gc.fillRect(375,195,
+//                55,60);
+//    // Top Parking Space
+//        gc.fillRect(250,100,
+//                60,55);
+
+    public Guest(int x, int y, int speed, int retX, int retY){
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.retX = retX;
         this.retY = retY;
+
     }
 
 

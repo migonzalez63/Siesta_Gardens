@@ -31,7 +31,7 @@ public class GuestGraphic {
     }
 
 
-    public void despawn(){
+    public void despawnBoarding(){
         gc.setFill(Color.DIMGREY);
         gc.fillOval(guest.getX(),guest.getY(),size,size);
     }
