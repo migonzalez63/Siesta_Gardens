@@ -8,6 +8,13 @@ public class GuestGraphic {
     private Guest guest;
     private GraphicsContext gc;
     private final int size = 6;
+    String area;
+
+    public GuestGraphic(GraphicsContext gc,int x, int y, String area){
+        this.gc = gc;
+        this.area = area;
+        guest = new Guest(x,y, 1, x, y);
+    }
 
     public GuestGraphic(GraphicsContext gc,int x, int y){
         this.gc = gc;
@@ -18,7 +25,7 @@ public class GuestGraphic {
      * Draws the guest in a observation area.
      */
     public void observationDraw(){
-        guest.observationWalk();
+        guest.observationWalk(area);
         reInit();
     }
 
