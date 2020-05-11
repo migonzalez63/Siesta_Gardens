@@ -42,8 +42,10 @@ public class Guest {
     public void observationWalk(String area) {
         int areaWidth, areaHeight, minX, minY, maxX, maxY;
 
+        // Generates random walk for the guest
         generateRandomWalk();
 
+        // Depending on the area, we will define its bounds and correct the pathing if necessary
         switch (area) {
             case "top":
                 areaWidth = 60;
