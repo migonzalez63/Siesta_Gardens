@@ -132,16 +132,16 @@ public class Main extends Application {
             //controller.moderateMode(controlLabel);
             // DayNight.DAY.setDay(true);
             //controller.setTICSMode(TICSModes.DayMode);
-            gh.returnGuestsToVehicles("right");
-
+//            gh.returnGuestsToVehicles("right");
+//            gh.startUnboarding();
+            gh.startSpawning();
         });
 
         malfunctionModeButton.setOnMousePressed(e -> {
             //controller.malfunctionMode(controlLabel);
 //            DayNight.DAY.setDay(true);
             //controller.setTICSMode(TICSModes.MalfunctionMode);
-            gh.returnGuestsToVehicles("all");
-//            gh.startSpawning();
+            gh.interruptSpawning();
         });
 
 //        spawnCarButton.setOnMousePressed(e -> controller.spawnCar());

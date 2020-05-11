@@ -157,11 +157,10 @@ public class Guest {
      */
     public boolean walkToPoint(int retX, int retY){
         if(atRetPoint()) return true;
-        if(x<retX) x++;
-        if(x>retX) x--;
-        if(y>retY) y--;
-        if(y<retY) y++;
-
+        if (x < retX) x+=speed;
+        if (x > retX) x-=speed;
+        if (y > retY) y-=speed;
+        if (y < retY) y+=speed;
         return false;
     }
 

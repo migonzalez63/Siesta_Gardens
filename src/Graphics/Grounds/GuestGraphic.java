@@ -4,6 +4,7 @@ import People.Guest;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+
 public class GuestGraphic {
     private Guest guest;
     private GraphicsContext gc;
@@ -13,12 +14,18 @@ public class GuestGraphic {
     public GuestGraphic(GraphicsContext gc,int x, int y, String area){
         this.gc = gc;
         this.area = area;
-        guest = new Guest(x,y, 1, x, y);
+        if(area.equals("spawn")) guest = new Guest(x,y,2,280,443);
+        else if(area.equals("exit")) guest = new Guest(x,y,2,210,443);
+        else guest = new Guest(x,y, 1, x, y);
     }
 
     public GuestGraphic(GraphicsContext gc,int x, int y){
         this.gc = gc;
         guest = new Guest(x,y, 1, x, y);
+    }
+
+    public Guest getGuest() {
+        return guest;
     }
 
     /**
@@ -27,6 +34,11 @@ public class GuestGraphic {
     public void observationDraw(){
         guest.observationWalk(area);
         reInit();
+    }
+
+    public void resetSpawnGuest(int x, int y) {
+        guest.setX(x);
+        guest.setY(y);
     }
 
     /**

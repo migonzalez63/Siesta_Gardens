@@ -16,16 +16,17 @@ public class GuestHandling {
     private List<GuestGraphic> leftViewing;
     private List<GuestGraphic> rightViewing;
     private List<GuestGraphic> topViewing;
-    private List<GuestGraphic> spawnPoint;
+    private GuestGraphic newSpawn,unboardSpawn;
     private GraphicsContext gc;
     private final int carMax = 10;
-    private final int timeAtObservations = 400;
     private final int spawnTime = 500;
     private Point leftParking = new Point(140,214);
     private Point rightParking = new Point(423,214);
     private Point topParking = new Point(270,100);
     private Point spawn = new Point(280,443);
-    private AnimationTimer leftPark, rightPark, topPark, spawnPark;
+    private Point boardSpawn = new Point(350, spawn.y);
+    private Point exit = new Point(210,spawn.y);
+    private AnimationTimer leftPark, rightPark, topPark, spawnPark,unboardPark;
 
 
     public GuestHandling(GraphicsContext gc){
@@ -33,7 +34,9 @@ public class GuestHandling {
         this.leftViewing = new ArrayList<>();
         this.topViewing = new ArrayList<>();
         this.rightViewing = new ArrayList<>();
-        this.spawnPoint = new ArrayList<>();
+        this.newSpawn = new GuestGraphic(gc, boardSpawn.x, boardSpawn.y,
+                "spawn");
+        this.unboardSpawn = new GuestGraphic(gc, spawn.x, spawn.y,"exit");
         initialize();
     }
 
@@ -84,7 +87,8 @@ public class GuestHandling {
      * @param area Parking area where guests need to return to vehicle.
      */
     public void returnGuestsToVehicles(String area){
-        if(area.equals("left")) leftPark.stop();
+        if(allClear()) return;
+        else if(area.equals("left")) leftPark.stop();
         else if(area.equals("right")) rightPark.stop();
         else if(area.equals("top")) topPark.stop();
         else{
@@ -118,32 +122,53 @@ public class GuestHandling {
         }.start();
     }
 
-
+    /**
+     * Draws people boarding the vehicle at the spawn point.
+     */
     public void startSpawning(){
-        new AnimationTimer(){
+       spawnPark = new AnimationTimer(){
             int x = 0;
             @Override
-            public void handle(long now){
-                if(x<10){
-                    gc.setFill(Color.ORANGE);
-                    gc.fillOval(280,443, 6, 6);
-                    gc.setFill(Color.DIMGREY);
-                    gc.fillRect(280,443,7,7);
-                    System.out.println("drawn");
+            public void handle(long now) {
+                newSpawn.walkToPointDraw(spawn.x,spawn.y);
+                if(newSpawn.readytoDespawn()){
+                    newSpawn.resetSpawnGuest(boardSpawn.x, boardSpawn.y);
+                    clearBoarding();
+                    x++;
                 }
-
-                if(x>=10){
-                    this.stop();
-                }
-                x++;
+                if(x>=10)this.stop();
             }
-        }.start();
+        };
+       spawnPark.start();
     }
 
-    private void drawSpawn(){
-        for(int i = 0;i < 10;i++){
+    /**
+     * Draws people exiting the vehicle at the spawn point.
+     */
+    public void startUnboarding(){
+        unboardPark = new AnimationTimer() {
+            int x = 0;
+            @Override
+            public void handle(long now) {
+                unboardSpawn.walkToPointDraw(exit.x, exit.y);
+                if(unboardSpawn.readytoDespawn()){
+                    unboardSpawn.resetSpawnGuest(spawn.x, spawn.y);
+                    clearExit();
+                    x++;
+                }
+                if(x>=10)this.stop();
+            }
+        };
+        unboardPark.start();
+    }
 
-        }
+    /**
+     * Used to stop the spawning of guest for boarding process.
+     */
+    public void interruptSpawning(){
+        spawnPark.stop();
+        newSpawn.resetSpawnGuest(boardSpawn.x, boardSpawn.y);
+        clearBoarding();
     }
 
     /**
@@ -245,7 +270,7 @@ public class GuestHandling {
             rightViewing.add(new GuestGraphic(gc,rightParking.x,
                     rightParking.y, "right"));
             topViewing.add(new GuestGraphic(gc, topParking.x,topParking.y, "top"));
-            spawnPoint.add(new GuestGraphic(gc,spawn.x,spawn.y, "spawn"));
+//            spawnPoint.add(new GuestGraphic(gc,350,443, "spawn"));
         }
     }
 
@@ -262,7 +287,25 @@ public class GuestHandling {
         return true;
     }
 
-    public boolean allClear(){
+    /**
+     * Clears the last passenger drawn boarding.
+     */
+    private void clearBoarding(){
+        gc.setFill(Color.DIMGREY);
+        int x = newSpawn.getGuest().getX();
+        int y = newSpawn.getGuest().getY();
+        gc.fillRect(x, y,6,6);
+    }
+
+    /**
+     * clears the last passenger drawn exiting.
+     */
+    private void clearExit(){
+        gc.setFill(Color.DIMGREY);
+        gc.fillRect(210,443,6,6);
+    }
+
+    private boolean allClear(){
         return readyToDespawn(leftViewing) && readyToDespawn(rightViewing) && readyToDespawn(topViewing);
     }
 }
