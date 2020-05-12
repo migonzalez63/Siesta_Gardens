@@ -22,7 +22,7 @@ import org.w3c.dom.css.Rect;
     remove speed attribute and just have one predetermined speed
  */
 
-public class Car {
+public class Car implements Runnable{
 
     private boolean locked;
     private boolean moving;
@@ -81,7 +81,7 @@ public class Car {
     //moves the car in a circle around the enclosure
     public void beginRoute(){
         //the car is locked and all passengers are in it
-        if(this.isMoving() && this.isLocked() && !this.emergency ) {
+        if(this.isMoving() && this.isLocked() && !this.emergency) {
             double angle = Math.atan2(this.getY(), this.getX());
             if (angle < 0) {
                 angle += 2 * Math.PI;
@@ -97,41 +97,64 @@ public class Car {
             //First Observation Area
             if(this.getX() > .999999 && this.getY() > -.0000001 && this.getY() < .0000001){
                 //stop car and unload passengers
-//                this.stopCar();
-                //setEmergency();
                 this.parkingArea = Direction.EAST;
+                pause();
                 System.out.println("Cartesian X :" + cartesianX + "Cartesian Y " + cartesianY);
                 System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
             }
             //Second Observation Area
             if(this.getY() < -.999999 && this.getX() > -.0000001 && this.getX() < .0000001){
                 //stop car and unload passengers
-//                this.stopCar();
-//                setEmergency();
                 this.parkingArea = Direction.NORTH;
+                pause();
+//                setEmergency();
 
                 System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
             }
             //Third Observation Area
             if(this.getX() < -.999999 && this.getY() > -.0000001 && this.getY() < .0000001){
                 //stop car and unload passengers
-//                this.stopCar();
                 this.parkingArea = Direction.WEST;
-
+                pause();
                 System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
 
             }
             //South parking Area/passenger area
             if(this.getY() > .999999 && this.getX() > -.0000001 && this.getX() < .0000001){
                 //stop car and unload passengers
-//                this.stopCar();
-//                setEmergency();
+
                 this.parkingArea = Direction.SOUTH;
+                pause();
                 System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
             }
 
         }else{
-//             goEmergencyRoute(this.parkingArea);
+             goEmergencyRoute(this.parkingArea);
+        }
+    }
+
+    private void pause(){
+        this.stopCar();
+        //unload the pedestrians around here
+        try {
+            Thread.sleep(3000);
+        }catch (Exception e){
+            System.err.println(e);
+        }
+        this.locked = true;
+        this.moving = true;
+    }
+    @Override
+    public void run(){
+        while(true){
+            try {
+                //necessary to slow the car down.
+                Thread.sleep(10);
+            }catch (Exception e){
+                System.err.println(e);
+            }
+            beginRoute();
+
         }
     }
 

@@ -152,6 +152,7 @@ public class Main extends Application {
             gh.returnGuestsToVehicles("all");
             gh.interruptSpawning();
             dino.free();
+            car.getCar().setEmergency();
         });
 
 
