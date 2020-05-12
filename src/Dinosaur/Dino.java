@@ -68,7 +68,14 @@ public class Dino {
     }
 
 
-    public void isContained(boolean freed) {
-        this.isContained = freed;
+    public void free() {
+        this.isContained = false;
     }
+    public void reset() {
+        this.isContained = false;
+        this.x =(int) (walkingArea.getX() + walkingArea.getWidth()/3);
+        this.y =(int) (walkingArea.getY() + walkingArea.getHeight()/3);
+
+    }
+
 }

@@ -1,5 +1,7 @@
 package Primary;
 
+import Car.Car;
+import Dinosaur.Dino;
 import Graphics.Grounds.CarGraphic;
 import Graphics.Grounds.DinoGraphic;
 import Graphics.Grounds.GuestGraphic;
@@ -44,6 +46,12 @@ public class Main extends Application {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         GuestHandling gh = new GuestHandling(gc);
+        ParkGrounds parkground = new ParkGrounds(gc, canvas);
+        Rectangle dinoEnclosure = parkground.getDinoEnclosure();
+        DinoGraphic dinoGraphic = new DinoGraphic(gc,dinoEnclosure,3,50);
+        Dino dino = dinoGraphic.getDino();
+        CarGraphic car = new CarGraphic(gc,260,250,900,900, 170);
+
         VBox controlBox = new VBox(20);
         HBox speedBox = new HBox(10);
         VBox pedSpeedBox = new VBox(10);
@@ -143,20 +151,16 @@ public class Main extends Application {
             //controller.setTICSMode(TICSModes.MalfunctionMode);
             gh.returnGuestsToVehicles("all");
             gh.interruptSpawning();
+            dino.free();
         });
 
-//        spawnCarButton.setOnMousePressed(e -> controller.spawnCar());
-//        spawnEmergencyButton.setOnMousePressed(e -> controller.spawnEmergency());
-//        spawnPedButton.setOnMousePressed(e -> controller.spawnPed());
-//        walkFaster.setOnMousePressed(e -> controller.walkFaster(true, pedSpeedVal));
-//        walkSlower.setOnMousePressed(e -> controller.walkFaster(false, pedSpeedVal));
-//        driveFaster.setOnMousePressed(e -> controller.driveFaster(true, carSpeedVal));
-//        driveSlower.setOnMousePressed(e -> controller.driveFaster(false, carSpeedVal));
+
         resetButton.setOnMousePressed(e -> {
             //controller.reset();
             carSpeedVal.setText("1");
             pedSpeedVal.setText("1");
             gh.resetAllGuests();
+            dino.reset();
         });
 
 
@@ -172,12 +176,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Siesta Garden Control System: Testbed");
 //        List<Guest>
-        ParkGrounds parkground = new ParkGrounds(gc, canvas);
-
-        Rectangle dinoEnclosure = parkground.getDinoEnclosure();
-        DinoGraphic dino = new DinoGraphic(gc,dinoEnclosure,3,50);
-
-        CarGraphic car = new CarGraphic(gc,260,250,900,900, 170);
         // So this is where I plan to spawn the guests. x = 280, y = 443, So
         // just a bit above it with y = 440 maybe 439 is best.
 //        GuestHandling gh = new GuestHandling(gc);
@@ -188,7 +186,7 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 parkground.drawGrounds(true);
-                dino.drawDinosaur();
+                dinoGraphic.drawDinosaur();
                 car.drawCar();
             }
         }.start();

@@ -70,7 +70,7 @@ public class Car {
 
     // Set the emergency to be true
     // switch coordinate systems
-    private void setEmergency(){
+    public void setEmergency(){
         this.emergency = true;
         this.y = cartesianY;
         this.x = cartesianX;

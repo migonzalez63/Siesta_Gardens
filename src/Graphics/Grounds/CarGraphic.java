@@ -37,4 +37,8 @@ public class CarGraphic {
             gc.fillRect(car.getX(),car.getY(), 20, 20);
         }
     }
+
+    public Car getCar() {
+        return car;
+    }
 }
