@@ -166,7 +166,9 @@ public class GuestHandling {
      * Used to stop the spawning of guest for boarding process.
      */
     public void interruptSpawning(){
-        spawnPark.stop();
+        if (spawnPark!=null){
+            spawnPark.stop();
+        }
         newSpawn.resetSpawnGuest(boardSpawn.x, boardSpawn.y);
         clearBoarding();
     }

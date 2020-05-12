@@ -134,8 +134,6 @@ public class ParkGrounds {
         gc.fillRect(250,100,
                 60,55);
 
-
-
         if (emergency){
             Image boatImage = new Image("/images/boat.jpg");
             gc.drawImage(boatImage,0,canvas.getHeight()-55, 100, 50);
