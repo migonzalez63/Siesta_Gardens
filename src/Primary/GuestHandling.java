@@ -1,6 +1,7 @@
 package Primary;
 
 import Graphics.Grounds.GuestGraphic;
+import People.Guest;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -132,7 +133,7 @@ public class GuestHandling {
             public void handle(long now) {
                 newSpawn.walkToPointDraw(spawn.x,spawn.y);
                 if(newSpawn.readytoDespawn()){
-                    newSpawn.resetSpawnGuest(boardSpawn.x, boardSpawn.y);
+                    newSpawn.resetGuestLoc(boardSpawn.x, boardSpawn.y);
                     clearBoarding();
                     x++;
                 }
@@ -152,7 +153,7 @@ public class GuestHandling {
             public void handle(long now) {
                 unboardSpawn.walkToPointDraw(exit.x, exit.y);
                 if(unboardSpawn.readytoDespawn()){
-                    unboardSpawn.resetSpawnGuest(spawn.x, spawn.y);
+                    unboardSpawn.resetGuestLoc(spawn.x, spawn.y);
                     clearExit();
                     x++;
                 }
@@ -163,14 +164,44 @@ public class GuestHandling {
     }
 
     /**
-     * Used to stop the spawning of guest for boarding process.
+     * Used to stop the spawning of guest for boarding process, should be
+     * used for emergency mode.
      */
     public void interruptSpawning(){
         if (spawnPark!=null){
             spawnPark.stop();
         }
-        newSpawn.resetSpawnGuest(boardSpawn.x, boardSpawn.y);
+        newSpawn.resetGuestLoc(boardSpawn.x, boardSpawn.y);
         clearBoarding();
+    }
+
+    /**
+     * Used when reset button is pressed. Resets all guests to default
+     * starting points and stops all timers drawing them.
+     */
+    public void resetAllGuests(){
+        interruptSpawning();
+        if(leftPark!=null){
+            leftPark.stop();
+            redrawLeftParking();
+            for(GuestGraphic g: leftViewing){
+                g.resetGuestLoc(leftParking.x, leftParking.y);
+            }
+        }
+        if(rightPark!=null){
+            rightPark.stop();
+            redrawRightParking();
+            for(GuestGraphic g: rightViewing){
+                g.resetGuestLoc(rightParking.x, rightParking.y);
+            }
+        }
+        if(topPark!=null){
+            topPark.stop();
+            redrawTopParking();
+            for(GuestGraphic g: topViewing){
+                g.resetGuestLoc(topParking.x, topParking.y);
+            }
+        }
     }
 
     /**
@@ -307,6 +338,10 @@ public class GuestHandling {
         gc.fillRect(210,443,6,6);
     }
 
+    /**
+     * Checks if guests at all parking areas are ready to be despawned.
+     * @return Boolean if guests are at respectful spawn points.
+     */
     private boolean allClear(){
         return readyToDespawn(leftViewing) && readyToDespawn(rightViewing) && readyToDespawn(topViewing);
     }

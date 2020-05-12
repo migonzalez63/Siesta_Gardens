@@ -61,7 +61,7 @@ public class Guest {
         int areaWidth, areaHeight, minX, minY, maxX, maxY;
 
         // Generates random walk for the guest
-        generateRandomWalk();
+        generateRandomWalk(area);
 
         // Depending on the area, we will define its bounds and correct the pathing if necessary
         switch (area) {
@@ -128,7 +128,7 @@ public class Guest {
     /**
      * Generates random walking for the pedestrian
      */
-    public void generateRandomWalk() {
+    private void generateRandomWalk(String area) {
         Random random = new Random();
         List<Direction> dirs =
                 new ArrayList<Direction>(EnumSet.allOf(Direction.class));
@@ -137,20 +137,22 @@ public class Guest {
                 this.y -= speed;
                 break;
             case SOUTH:
-                this.y += speed;
+                if(area.equals("top"))this.y += speed+1;
+                else this.y += speed;
                 break;
             case EAST:
-                this.x += speed;
+                if(area.equals("left"))this.x += speed+1;
+                else this.x += speed;
                 break;
             case WEST:
-                this.x -= speed;
+                if(area.equals("right"))this.x -= speed+1;
+                else this.x -= speed;
                 break;
         }
     }
 
     /**
-     * Here the guest returns back to the car, in reality this could be used
-     * for unboarding.
+     * Use this method to draw guests walking back to a certain points.
      * @param retX Return point x
      * @param retY Return point y
      * @return boolean determining if at return point.

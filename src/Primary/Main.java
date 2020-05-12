@@ -2,7 +2,9 @@ package Primary;
 
 import Graphics.Grounds.CarGraphic;
 import Graphics.Grounds.DinoGraphic;
+import Graphics.Grounds.GuestGraphic;
 import Graphics.Grounds.ParkGrounds;
+import People.Guest;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -14,13 +16,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends Application {
-
 
     /**
      * This is the primary controller for the program. This will create the intersection, create the Graphics, and give the
@@ -29,7 +34,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        AtomicBoolean parkEmergency= new AtomicBoolean(false);
 
 
         // Setup border pane with HBox of two buttons along the top and
@@ -53,34 +57,114 @@ public class Main extends Application {
         Label resultLabel = new Label("");
         resultLabel.setPrefSize(150, 50);
 
+        Label controlLabel = new Label("Modes:\n\n");
+        controlLabel.setPrefSize(150, 100);
+
+        Button rushButton = new Button("\uD83C\uDF1E Rush Hour");
+        Button heavyButton = new Button("☀ Heavy Visitor Traffic");
+        Button moderateButton = new Button("☀ Moderate Visitor Traffic");
         Button malfunctionModeButton= new Button("⚠Emergency Mode");
+        Button spawnCarButton = new Button("Spawn Car");
+        Button spawnEmergencyButton = new Button("Spawn Emergency");
+        Button spawnPedButton = new Button("Spawn Pedestrian");
         Button resetButton = new Button("Reset");
+
+        Label pedLabel = new Label("Ped Speed");
+        pedLabel.setFont(new Font("Serif", 12));
+        Label pedSpeedVal = new Label("1");
+        pedSpeedVal.setFont(new Font("Serif", 12));
+        Button walkFaster = new Button("\u2191");
+        Button walkSlower = new Button("\u2193");
+
+        Label carLabel = new Label("Car Speed");
+        carLabel.setFont(new Font("Serif", 12));
+        Label carSpeedVal = new Label("1");
+        carSpeedVal.setFont(new Font("Serif", 12));
+        Button driveFaster = new Button("\u2191");
+        Button driveSlower = new Button("\u2193");
+
+
+
+
+        rushButton.setStyle("-fx-background-color: #f2740b;-fx-text-fill: white; -fx-font: 14px Calibri;-fx-border-width: 1;-fx-border-color: #e36700;");
         malfunctionModeButton.setStyle("-fx-background-color: red;-fx-text-fill: white; -fx-font: 14px Calibri; -fx-border-width: 1;-fx-border-color: black;");
+        heavyButton.setStyle("-fx-background-color: #f2740b;-fx-text-fill: white; -fx-font: 14px Calibri; -fx-border-width: 1;-fx-border-color: #e36700;");
+        moderateButton.setStyle("-fx-background-color: #f2740b;-fx-text-fill: white; -fx-font: 14px Calibri;-fx-border-width: 1;-fx-border-color: #e36700;");
 
-       resetButton.setStyle("-fx-background-color: #4775d1;-fx-text-fill: white; -fx-font: 14px Calibri;");
+        spawnCarButton.setStyle("-fx-background-color: #ffffff;-fx-text-fill: #1f3d7a; -fx-border-radius: 2; -fx-border-width: 1; -fx-border-color: #1f3d7a; -fx-font: 13px Calibri;");
+        spawnEmergencyButton.setStyle("-fx-background-color: #ffffff;-fx-text-fill: #1f3d7a; -fx-border-radius: 2; -fx-border-width: 1; -fx-border-color: #1f3d7a; -fx-font: 13px Calibri;");
+        spawnPedButton.setStyle("-fx-background-color: #ffffff;-fx-text-fill: #1f3d7a; -fx-border-radius: 2; -fx-border-width: 1; -fx-border-color: #1f3d7a; -fx-font: 13px Calibri;");
+
+        resetButton.setStyle("-fx-background-color: #4775d1;-fx-text-fill: white; -fx-font: 14px Calibri;");
+        walkFaster.setStyle("-fx-background-color: #4775d1;-fx-text-fill: white; -fx-font: 14px Calibri;");
+        walkSlower.setStyle("-fx-background-color: #4775d1;-fx-text-fill: white; -fx-font: 14px Calibri;");
+        driveFaster.setStyle("-fx-background-color: #4775d1;-fx-text-fill: white; -fx-font: 14px Calibri;");
+        driveSlower.setStyle("-fx-background-color: #4775d1;-fx-text-fill: white; -fx-font: 14px Calibri;");
 
 
+        rushButton.setPrefSize(160, 30);
         malfunctionModeButton.setPrefSize(160, 30);
+        heavyButton.setPrefSize(160, 30);
+        moderateButton.setPrefSize(160, 30);
+        spawnCarButton.setPrefSize(160, 30);
+        spawnEmergencyButton.setPrefSize(160, 30);
+        spawnPedButton.setPrefSize(160, 30);
         resetButton.setPrefSize(160, 30);
 
+        //Controller controller = new Controller(gc);
+        //controller.start();
+
         // Handle button press actions
+        rushButton.setOnMousePressed(e -> {
+            //controller.rushMode(controlLabel);
+            // DayNight.DAY.setDay(true);
+            gh.startDrawingLeftObservation();
+            gh.startDrawingRightObservation();
+            gh.startDrawingTopObservation();
+            //controller.setTICSMode(TICSModes.DayMode);
+        });
+        heavyButton.setOnMousePressed(e -> {
+            //controller.heavyMode(controlLabel);
+            //DayNight.DAY.setDay(true);
+            //controller.setTICSMode(TICSModes.DayMode);
+        });
+        moderateButton.setOnMousePressed(e -> {
+            //controller.moderateMode(controlLabel);
+            // DayNight.DAY.setDay(true);
+            //controller.setTICSMode(TICSModes.DayMode);
+//            gh.returnGuestsToVehicles("right");
+//            gh.startUnboarding();
+            gh.startSpawning();
+        });
 
         malfunctionModeButton.setOnMousePressed(e -> {
-            parkEmergency.set(true);
+            //controller.malfunctionMode(controlLabel);
+//            DayNight.DAY.setDay(true);
+            //controller.setTICSMode(TICSModes.MalfunctionMode);
+            gh.returnGuestsToVehicles("all");
             gh.interruptSpawning();
         });
 
-
+//        spawnCarButton.setOnMousePressed(e -> controller.spawnCar());
+//        spawnEmergencyButton.setOnMousePressed(e -> controller.spawnEmergency());
+//        spawnPedButton.setOnMousePressed(e -> controller.spawnPed());
+//        walkFaster.setOnMousePressed(e -> controller.walkFaster(true, pedSpeedVal));
+//        walkSlower.setOnMousePressed(e -> controller.walkFaster(false, pedSpeedVal));
+//        driveFaster.setOnMousePressed(e -> controller.driveFaster(true, carSpeedVal));
+//        driveSlower.setOnMousePressed(e -> controller.driveFaster(false, carSpeedVal));
         resetButton.setOnMousePressed(e -> {
-            parkEmergency.set(false);
             //controller.reset();
+            carSpeedVal.setText("1");
+            pedSpeedVal.setText("1");
+            gh.resetAllGuests();
         });
 
 
         // Setup the scene
-
+        carSpeedBox.getChildren().addAll(carLabel, carSpeedVal, driveFaster, driveSlower);
+        pedSpeedBox.getChildren().addAll(pedLabel, pedSpeedVal, walkFaster, walkSlower);
         speedBox.getChildren().addAll(pedSpeedBox, carSpeedBox);
-        controlBox.getChildren().addAll( malfunctionModeButton, resetButton, resultLabel, speedBox);
+        controlBox.getChildren().addAll(controlLabel, rushButton, heavyButton, moderateButton,malfunctionModeButton, spawnCarButton, spawnEmergencyButton, spawnPedButton, resetButton, resultLabel, speedBox);
         root.setRight(controlBox);
         root.setLeft(canvas);
 
@@ -97,13 +181,13 @@ public class Main extends Application {
         // So this is where I plan to spawn the guests. x = 280, y = 443, So
         // just a bit above it with y = 440 maybe 439 is best.
 //        GuestHandling gh = new GuestHandling(gc);
-        parkground.drawGrounds(parkEmergency.get());
+        parkground.drawGrounds(true);
 
         primaryStage.show();
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                parkground.drawGrounds(parkEmergency.get());
+                parkground.drawGrounds(true);
                 dino.drawDinosaur();
                 car.drawCar();
             }

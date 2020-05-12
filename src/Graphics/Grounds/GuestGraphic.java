@@ -36,7 +36,12 @@ public class GuestGraphic {
         reInit();
     }
 
-    public void resetSpawnGuest(int x, int y) {
+    /**
+     * Used to rest the guests location.
+     * @param x x coordinate
+     * @param y y coordinate
+     */
+    public void resetGuestLoc(int x, int y) {
         guest.setX(x);
         guest.setY(y);
     }
@@ -60,11 +65,6 @@ public class GuestGraphic {
         boolean ret = guest.walkToPoint(x, y);
         reInit();
         return ret;
-    }
-
-    public void changeRetPoints(int retX, int retY){
-        guest.setRetX(retX);
-        guest.setRetY(retY);
     }
 
     /**
