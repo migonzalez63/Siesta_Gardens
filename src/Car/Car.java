@@ -1,4 +1,5 @@
 package Car;
+import Primary.Direction;
 import javafx.scene.shape.Rectangle;
 import org.w3c.dom.css.Rect;
 /*todo:
@@ -27,10 +28,13 @@ public class Car {
     private boolean moving;
     private double x;
     private double y;
+    private double cartesianX;
+    private double cartesianY;
     private int speed;
     private int numPassengers;
     private int numPassengersPresent;
-
+    private boolean emergency = false;
+    private Direction parkingArea;
     public Car(boolean locked, boolean moving, double x, double y, int speed) {
         this.locked = locked;
         this.moving = moving;
@@ -64,13 +68,20 @@ public class Car {
         }
     }
 
+    // Set the emergency to be true
+    // switch coordinate systems
+    private void setEmergency(){
+        this.emergency = true;
+        this.y = cartesianY;
+        this.x = cartesianX;
+    }
     public void setX(double x) { this.x = x; }
     public void setY(double y) { this.y = y; }
 
     //moves the car in a circle around the enclosure
     public void beginRoute(){
         //the car is locked and all passengers are in it
-        if(this.isMoving() && this.isLocked()) {
+        if(this.isMoving() && this.isLocked() && !this.emergency ) {
             double angle = Math.atan2(this.getY(), this.getX());
             if (angle < 0) {
                 angle += 2 * Math.PI;
@@ -81,24 +92,124 @@ public class Car {
             this.setX(Math.cos(angle));
             this.setY(Math.sin(angle));
 
-            //check to see if we've reached the first observation area and stop the car
+
+            //Observation Areas in counter-clockwise order
+            //First Observation Area
             if(this.getX() > .999999 && this.getY() > -.0000001 && this.getY() < .0000001){
                 //stop car and unload passengers
-                //this.stopCar();
+//                this.stopCar();
+                //setEmergency();
+                this.parkingArea = Direction.EAST;
+                System.out.println("Cartesian X :" + cartesianX + "Cartesian Y " + cartesianY);
                 System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
             }
-            //check to see if we've reached the second observation area and stop the car
-            if(this.getY() > .999999 && this.getX() > -.0000001 && this.getX() < .0000001){
+            //Second Observation Area
+            if(this.getY() < -.999999 && this.getX() > -.0000001 && this.getX() < .0000001){
                 //stop car and unload passengers
-                //this.stopCar();
+//                this.stopCar();
+//                setEmergency();
+                this.parkingArea = Direction.NORTH;
+
                 System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
             }
-            //check to see if we've reached the third observation area and stop the car
+            //Third Observation Area
             if(this.getX() < -.999999 && this.getY() > -.0000001 && this.getY() < .0000001){
                 //stop car and unload passengers
-                //this.stopCar();
+//                this.stopCar();
+                this.parkingArea = Direction.WEST;
+
                 System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
+
+            }
+            //South parking Area/passenger area
+            if(this.getY() > .999999 && this.getX() > -.0000001 && this.getX() < .0000001){
+                //stop car and unload passengers
+//                this.stopCar();
+//                setEmergency();
+                this.parkingArea = Direction.SOUTH;
+                System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
+            }
+
+        }else{
+//             goEmergencyRoute(this.parkingArea);
+        }
+    }
+
+
+    private void goEmergencyRoute(Direction parkingArea){
+        System.out.println("Cartesian X :" + cartesianX + "Cartesian Y " + cartesianY);
+
+        switch (parkingArea) {
+            case NORTH:
+                emergencyRouteNorth();
+                break;
+            case WEST:
+                emergencyRouteWest();
+                break;
+            case EAST:
+                emergencyRouteEast();
+                break;
+        }
+
+    }
+    //will replace with actual variables here in a minute
+    private void emergencyRouteWest(){
+        // Go Up to be parralel with the gate
+        if (this.getY() >= 200 && this.getX() >= 10) {
+            this.y -= 1;
+            System.out.println(this.getY());
+            // Go to the left to exit
+        } else if (this.getX() >= 10) {
+            this.x -= 1;
+        } else {
+            //Go down to the Pier
+            if (this.getY() <= 450) {
+                this.y += 1;
             }
         }
     }
+    //will replace with actual variables here in a minute
+    private void emergencyRouteEast(){
+        // Go Up to be parallel with the gate
+        if (this.getY() >= 200 && this.getX() <= 520) {
+            this.y -= 1;
+            //Go to the exit Gate to the right
+        } else if (this.getX() <= 520) {
+            this.x += 1;
+        } else {
+            //Down to the pier
+            if (this.getY() <= 450) {
+                this.y += 1;
+            }
+        }
+    }
+    //will replace with actual variables here in a minute
+    private void emergencyRouteNorth(){
+        // Up to exit the gate
+        if (this.getY() >= 20 && this.getX() <= 520) {
+            this.y -= 1;
+            System.out.println(this.getY());
+            //head right to right end of the enclosure
+        } else if (this.getX() <= 520) {
+            this.x += 1;
+        } else {
+            //down to pier
+            if (this.getY() <= 450) {
+                this.y += 1;
+            }
+        }
+    }
+
+    //sets the cartesian points of the car from its
+    // regular radial path
+    public void setCartesianPoints(double x, double y) {
+        this.cartesianX = x;
+        this.cartesianY = y;
+    }
+
+    //gets emergency
+    public boolean isEmergency() {
+        return emergency;
+    }
+
 }

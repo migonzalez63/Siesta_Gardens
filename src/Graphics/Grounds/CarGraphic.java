@@ -24,6 +24,17 @@ public class CarGraphic {
     public void drawCar(){
         car.beginRoute();
         gc.setFill(Color.GRAY);
-        gc.fillRect(xOffset + car.getX() * this.movingRadius,yOffset + car.getY() * this.movingRadius,20,20);
+
+        //Keep the car going in radial motion in normal operations
+        //store the cartesian points in case of emergency
+        if(!car.isEmergency()) {
+            gc.fillRect(xOffset + car.getX() * this.movingRadius, yOffset + car.getY() * this.movingRadius, 20, 20);
+            car.setCartesianPoints(xOffset + car.getX() * this.movingRadius,yOffset + car.getY() * this.movingRadius);
+
+        }else {
+            //if there is an emergency, draw the regular x and y which are now
+            // in cartesian form
+            gc.fillRect(car.getX(),car.getY(), 20, 20);
+        }
     }
 }
