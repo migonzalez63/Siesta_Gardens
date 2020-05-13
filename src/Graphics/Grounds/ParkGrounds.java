@@ -135,7 +135,7 @@ public class ParkGrounds {
                 60,55);
 
         if (emergency){
-            Image boatImage = new Image("/images/boat.jpg");
+            Image boatImage = new Image("/images/boat.png");
             gc.drawImage(boatImage,0,canvas.getHeight()-55, 100, 50);
             gc.drawImage(boatImage,canvas.getWidth()-100,canvas.getHeight()-55, 100, 50);
         }

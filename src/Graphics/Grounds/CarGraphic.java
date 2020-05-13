@@ -2,8 +2,8 @@ package Graphics.Grounds;
 
 import Car.Car;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class CarGraphic {
     private Car car;
@@ -26,18 +26,22 @@ public class CarGraphic {
     public void drawCar(){
 //        car.beginRoute();
         gc.setFill(Color.GRAY);
+        Image carImage = new Image("/images/carVertical.png");
+
 
         //Keep the car going in radial motion in normal operations
         //store the cartesian points in case of emergency
         if(!car.isEmergency()) {
-            gc.fillRect(xOffset + car.getX() * this.movingRadius, yOffset + car.getY() * this.movingRadius, 20, 20);
+            gc.drawImage(carImage,xOffset + car.getX() * this.movingRadius,yOffset + car.getY() * this.movingRadius,20,30);
+           // gc.fillRect(xOffset + car.getX() * this.movingRadius, yOffset + car.getY() * this.movingRadius, 20, 20);
             car.setCartesianPoints(xOffset + car.getX() * this.movingRadius,yOffset + car.getY() * this.movingRadius);
 
         }else {
             //if there is an emergency, draw the regular x and y which are now
             // in cartesian form
-            gc.fillRect(car.getX(),car.getY(), 20, 20);
-            car.setCartesianPoints( car.getX() , car.getY());
+            gc.drawImage(carImage,car.getX(),car.getY(),20,30);
+//            gc.fillRect(car.getX(),car.getY(), 20, 20);
+//            car.setCartesianPoints( car.getX() , car.getY());
 
         }
     }
