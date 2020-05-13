@@ -17,6 +17,7 @@ public class Dino {
     private Rectangle walkingArea;
     private Direction lastDirection;
     private int directionSteps;
+    private int emergencyAreaBorder;
 
     public Dino(Rectangle walkingArea, int speed,int size){
         this.walkingArea = walkingArea;
@@ -26,6 +27,7 @@ public class Dino {
         this.lastDirection=Direction.EAST;
         this.x =(int) (walkingArea.getX() + walkingArea.getWidth()/3);
         this.y =(int) (walkingArea.getY() + walkingArea.getHeight()/3);
+        this.emergencyAreaBorder=80;
 
     }
 
@@ -120,9 +122,11 @@ public class Dino {
         }
     }
     private  boolean withinBounds(int newX, int newY){
-
-
-        if(!isContained) return  false;
+//        if(!isContained){
+//            walkingArea= new Rectangle(walkingArea.getX()+emergencyAreaBorder,
+//                    walkingArea.getY()+emergencyAreaBorder, walkingArea.getWidth()+emergencyAreaBorder,
+//                    walkingArea.getHeight()+emergencyAreaBorder);
+//        }
         //checks whether the point is within the rectange inside the animal enclosure
         int dinoBoundsX = newX + size;
         int dinoBoundsY = newY + size;
@@ -140,12 +144,23 @@ public class Dino {
         return y;
     }
 
+    public Rectangle getWalkingArea(){
+        return walkingArea;
+    }
+
 
     public void free() {
         this.isContained = false;
+        walkingArea= new Rectangle(walkingArea.getX()-emergencyAreaBorder,
+                walkingArea.getY()-emergencyAreaBorder, walkingArea.getWidth()+(2*emergencyAreaBorder),
+                walkingArea.getHeight()+(2*emergencyAreaBorder));
+
     }
     public void reset() {
         this.isContained = false;
+        this.walkingArea=new Rectangle(walkingArea.getX()+emergencyAreaBorder,
+                walkingArea.getY()+emergencyAreaBorder,walkingArea.getWidth()-(2*emergencyAreaBorder),
+                walkingArea.getHeight()-(2*emergencyAreaBorder));
         this.x =(int) (walkingArea.getX() + walkingArea.getWidth()/3);
         this.y =(int) (walkingArea.getY() + walkingArea.getHeight()/3);
 

@@ -1,6 +1,5 @@
 package Primary;
 
-import Car.Car;
 import Dinosaur.Dino;
 import Graphics.Grounds.CarGraphic;
 import Graphics.Grounds.DinoGraphic;
@@ -8,7 +7,6 @@ import Graphics.Grounds.ParkGrounds;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,13 +18,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Main extends Application {
 
@@ -44,6 +40,7 @@ public class Main extends Application {
         // the controller with something to draw on
         BorderPane root = new BorderPane();
         Canvas canvas = new Canvas(550, 550);
+        AtomicReference<Boolean> parkEmergency = new AtomicReference<>(false);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         GuestHandling gh = new GuestHandling(gc);
@@ -148,6 +145,7 @@ public class Main extends Application {
             //controller.malfunctionMode(controlLabel);
 //            DayNight.DAY.setDay(true);
             //controller.setTICSMode(TICSModes.MalfunctionMode);
+            parkEmergency.set(true);
             gh.returnGuestsToVehicles("all");
             gh.interruptSpawning();
             dino.free();
@@ -156,6 +154,17 @@ public class Main extends Application {
             car2.getCar().setEmergency();
             gh.resetTime();
         });
+
+        resetButton.setOnMousePressed(e -> {
+            //controller.reset();
+            carSpeedVal.setText("1");
+            pedSpeedVal.setText("1");
+            gh.resetAllGuests();
+            dino.reset();
+            gh.resetTime();
+            parkEmergency.set(false);
+        });
+
 
 
         // Setup the scene
@@ -176,16 +185,19 @@ public class Main extends Application {
         // So this is where I plan to spawn the guests. x = 280, y = 443, So
         // just a bit above it with y = 440 maybe 439 is best.
 //        GuestHandling gh = new GuestHandling(gc);
-        parkground.drawGrounds(true);
+        parkground.drawGrounds(parkEmergency.get());
 
         primaryStage.show();
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                parkground.drawGrounds(true);
+                parkground.drawGrounds(parkEmergency.get());
                 //Debugging invisible dino enclosure
                 gc.setStroke(Color.BLACK);
-                gc.strokeRect(dinoEnclosure.getX(), dinoEnclosure.getY(), dinoEnclosure.getWidth(),dinoEnclosure.getHeight());
+                gc.strokeRect(dinoGraphic.getDino().getWalkingArea().getX(),
+                        dinoGraphic.getDino().getWalkingArea().getY(),
+                        dinoGraphic.getDino().getWalkingArea().getWidth(),
+                        dinoGraphic.getDino().getWalkingArea().getHeight());
 
                 dinoGraphic.drawDinosaur();
                 dinoLocation.setText("X: "+dino.getX()+" Y: "+dino.getY());
