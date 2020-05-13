@@ -1,11 +1,9 @@
 package Primary;
 
 import Graphics.Grounds.GuestGraphic;
-import People.Spawner;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +26,7 @@ public class GuestHandling {
     private Point boardSpawn = new Point(290, spawn.y);
     private Point exit = new Point(210,spawn.y);
     private AnimationTimer leftPark, rightPark, topPark, spawnPark, unboardPark;
-    private Spawner spawner;
+    private BeaconHandling bh;
 
 
     public GuestHandling(GraphicsContext gc){
@@ -39,33 +37,9 @@ public class GuestHandling {
         this.newSpawn = new GuestGraphic(gc, boardSpawn.x, boardSpawn.y,
                 "spawn");
         this.unboardSpawn = new GuestGraphic(gc, spawn.x, spawn.y,"exit");
-        //default is 25
-        this.spawner = new Spawner(20);
         initialize();
     }
 
-    /**
-     * Used in button presses to change amount of guests spawning.
-     * @param avgRate
-     */
-    public void changeGuestRate(int avgRate){
-        spawner.setSpawnRate(avgRate);
-    }
-
-    /**
-     * Use this on traffic change to see how fast a mode is.
-     * @return String showing avg wait time.
-     */
-    public String guestStatistics(){
-        return spawner.message();
-    }
-
-    /**
-     * Should invoke on emergency or reset.
-     */
-    public void resetTime(){
-        spawner.resetTime();
-    }
 
 
     /**
@@ -158,7 +132,7 @@ public class GuestHandling {
      * car is at boarding area.
      */
     public void startSpawning(){
-        trackTimeBoarding();
+//        trackTimeBoarding();
        spawnPark = new AnimationTimer(){
             int x = 0;
             @Override
@@ -241,13 +215,6 @@ public class GuestHandling {
     /************************************************
      * Private methods here
      ************************************************/
-
-    /**
-     * Invoke this when guests are boarding.
-     */
-    private void trackTimeBoarding(){
-        spawner.setWaitTime(10);
-    }
 
     /**
      * draws the guests in the left parking area.

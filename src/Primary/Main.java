@@ -1,6 +1,7 @@
 package Primary;
 
 import Dinosaur.Dino;
+import Graphics.Grounds.Beacon;
 import Graphics.Grounds.CarGraphic;
 import Graphics.Grounds.DinoGraphic;
 import Graphics.Grounds.ParkGrounds;
@@ -44,6 +45,7 @@ public class Main extends Application {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         GuestHandling gh = new GuestHandling(gc);
+        BeaconHandling bh = new BeaconHandling(gc);
         ParkGrounds parkground = new ParkGrounds(gc, canvas);
         Rectangle dinoEnclosure = parkground.getDinoEnclosure();
         DinoGraphic dinoGraphic = new DinoGraphic(gc,dinoEnclosure,3,50);
@@ -51,6 +53,7 @@ public class Main extends Application {
         CarGraphic car = new CarGraphic(gc,260,250,0,-1, 170,gh);
         CarGraphic car1 = new CarGraphic(gc,260,250,1,0, 170,gh);
         CarGraphic car2 = new CarGraphic(gc,260,250,0,1, 170,gh);
+
 
         VBox gpsPane = new VBox();
         VBox controlBox = new VBox(20);
@@ -142,26 +145,22 @@ public class Main extends Application {
         // Handle button press actions
 
         malfunctionModeButton.setOnMousePressed(e -> {
-            //controller.malfunctionMode(controlLabel);
-//            DayNight.DAY.setDay(true);
-            //controller.setTICSMode(TICSModes.MalfunctionMode);
             parkEmergency.set(true);
+//            bh.emergency();
             gh.returnGuestsToVehicles("all");
             gh.interruptSpawning();
             dino.free();
             car.getCar().setEmergency();
             car1.getCar().setEmergency();
             car2.getCar().setEmergency();
-            gh.resetTime();
         });
 
         resetButton.setOnMousePressed(e -> {
-            //controller.reset();
             carSpeedVal.setText("1");
             pedSpeedVal.setText("1");
             gh.resetAllGuests();
             dino.reset();
-            gh.resetTime();
+//            bh.reset();
             parkEmergency.set(false);
         });
 
@@ -181,14 +180,10 @@ public class Main extends Application {
         Scene scene = new Scene(root, 720, 700);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Siesta Garden Control System: Testbed");
-//        List<Guest>
-        // So this is where I plan to spawn the guests. x = 280, y = 443, So
-        // just a bit above it with y = 440 maybe 439 is best.
-//        GuestHandling gh = new GuestHandling(gc);
         parkground.drawGrounds(parkEmergency.get());
-
         primaryStage.show();
         new AnimationTimer() {
+            int x = 0;
             @Override
             public void handle(long now) {
                 parkground.drawGrounds(parkEmergency.get());
@@ -207,6 +202,12 @@ public class Main extends Application {
                 car.drawCar();
                 car1.drawCar();
                 car2.drawCar();
+                //Handles flashing
+                bh.drawNormal();
+                if(x%20 == 0 && parkEmergency.get()){
+                    bh.drawEmergency();
+                }
+                x++;
             }
         }.start();
          primaryStage.setOnCloseRequest(event -> {
