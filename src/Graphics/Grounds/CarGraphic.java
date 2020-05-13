@@ -13,12 +13,12 @@ public class CarGraphic {
     private int xOffset;
     private int yOffset;
     private Thread carThread;
-    public CarGraphic(GraphicsContext gc, int xOffset, int yOffset, int width, int height, int movingRadius){
+    public CarGraphic(GraphicsContext gc, int xOffset, int yOffset, int unitX, int unitY, int movingRadius){
         this.gc = gc;
         this.movingRadius = movingRadius;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
-        this.car = new Car(true,true,0,-1,1);
+        this.car = new Car(true,true,unitX,unitY,1);
         this.carThread =new Thread(car);
         carThread.start();
     }
@@ -26,7 +26,6 @@ public class CarGraphic {
     public void drawCar(){
 //        car.beginRoute();
         gc.setFill(Color.GRAY);
-        System.out.println(xOffset + car.getX() * this.movingRadius+""+ yOffset + car.getY() * this.movingRadius);
 
         //Keep the car going in radial motion in normal operations
         //store the cartesian points in case of emergency

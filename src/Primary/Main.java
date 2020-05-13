@@ -50,7 +50,12 @@ public class Main extends Application {
         Rectangle dinoEnclosure = parkground.getDinoEnclosure();
         DinoGraphic dinoGraphic = new DinoGraphic(gc,dinoEnclosure,3,50);
         Dino dino = dinoGraphic.getDino();
-        CarGraphic car = new CarGraphic(gc,260,250,900,900, 170);
+        CarGraphic car = new CarGraphic(gc,260,250,0,-1, 170);
+        CarGraphic car1 = new CarGraphic(gc,260,250,1,0, 170);
+        CarGraphic car2 = new CarGraphic(gc,260,250,0,1, 170);
+
+//        CarGraphic car1 = new CarGraphic(gc,260,250,900,900, 170);
+//        CarGraphic car2 = new CarGraphic(gc,330,0,900,900, 170);
 
         VBox controlBox = new VBox(20);
         HBox speedBox = new HBox(10);
@@ -153,6 +158,8 @@ public class Main extends Application {
             gh.interruptSpawning();
             dino.free();
             car.getCar().setEmergency();
+            car1.getCar().setEmergency();
+            car2.getCar().setEmergency();
         });
 
 
@@ -189,7 +196,9 @@ public class Main extends Application {
                 parkground.drawGrounds(true);
                 dinoGraphic.drawDinosaur();
                 car.drawCar();
-            }
+                car1.drawCar();
+                car2.drawCar();
+                }
         }.start();
          primaryStage.setOnCloseRequest(event -> {
             System.exit(0);
