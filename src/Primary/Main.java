@@ -124,12 +124,10 @@ public class Main extends Application {
 
         // Handle button press actions
         rushButton.setOnMousePressed(e -> {
-            //controller.rushMode(controlLabel);
-            // DayNight.DAY.setDay(true);
-            gh.startDrawingLeftObservation();
-            gh.startDrawingRightObservation();
-            gh.startDrawingTopObservation();
-            //controller.setTICSMode(TICSModes.DayMode);
+            //uncomment this if you want to see people spawn
+//            gh.startDrawingLeftObservation();
+//            gh.startDrawingRightObservation();
+//            gh.startDrawingTopObservation();
         });
         heavyButton.setOnMousePressed(e -> {
             //controller.heavyMode(controlLabel);
@@ -140,9 +138,6 @@ public class Main extends Application {
             //controller.moderateMode(controlLabel);
             // DayNight.DAY.setDay(true);
             //controller.setTICSMode(TICSModes.DayMode);
-//            gh.returnGuestsToVehicles("right");
-//            gh.startUnboarding();
-            gh.startSpawning();
         });
 
         malfunctionModeButton.setOnMousePressed(e -> {

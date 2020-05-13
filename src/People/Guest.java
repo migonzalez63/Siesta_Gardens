@@ -55,7 +55,7 @@ public class Guest {
     }
 
     /**
-     * Used for random walking but need to limit area of walking still.
+     * Used for random walking and making sure they do not go out of bounds.
      */
     public void observationWalk(String area) {
         int areaWidth, areaHeight, minX, minY, maxX, maxY;
@@ -70,7 +70,7 @@ public class Guest {
                 areaHeight = 55;
 
                 minX = 250;
-                minY =  100;
+                minY =  95;
                 maxX = minX + areaWidth;
                 maxY = minY + areaHeight;
 
@@ -78,7 +78,7 @@ public class Guest {
 
                 return;
             case "left":
-                areaWidth = 55;
+                areaWidth = 50;
                 areaHeight = 60;
 
                 minX = 140;
@@ -94,7 +94,7 @@ public class Guest {
                 areaWidth = 55;
                 areaHeight = 60;
 
-                minX = 375;
+                minX = 380;
                 minY = 195;
                 maxX = minX + areaWidth;
                 maxY = minY + areaHeight;
@@ -166,9 +166,6 @@ public class Guest {
         return false;
     }
 
-    public void unboardWalk(){
-
-    }
 
     /**
      * Checks if guest has arrived at spawn point.
