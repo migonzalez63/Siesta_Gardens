@@ -14,6 +14,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
@@ -65,16 +69,10 @@ public class Main extends Application {
         Label resultLabel = new Label("");
         resultLabel.setPrefSize(150, 50);
 
-        Label controlLabel = new Label("Modes:\n\n");
-        controlLabel.setPrefSize(150, 100);
 
-        Button rushButton = new Button("\uD83C\uDF1E Rush Hour");
-        Button heavyButton = new Button("☀ Heavy Visitor Traffic");
-        Button moderateButton = new Button("☀ Moderate Visitor Traffic");
+
         Button malfunctionModeButton= new Button("⚠Emergency Mode");
-        Button spawnCarButton = new Button("Spawn Car");
-        Button spawnEmergencyButton = new Button("Spawn Emergency");
-        Button spawnPedButton = new Button("Spawn Pedestrian");
+
         Button resetButton = new Button("Reset");
 
         Label pedLabel = new Label("Ped Speed");
@@ -127,14 +125,8 @@ public class Main extends Application {
         gpsPane.setBackground(Background.EMPTY);
         gpsPane.setStyle("-fx-background-color: #000000;");
 
-        rushButton.setStyle("-fx-background-color: #f2740b;-fx-text-fill: white; -fx-font: 14px Calibri;-fx-border-width: 1;-fx-border-color: #e36700;");
         malfunctionModeButton.setStyle("-fx-background-color: red;-fx-text-fill: white; -fx-font: 14px Calibri; -fx-border-width: 1;-fx-border-color: black;");
-        heavyButton.setStyle("-fx-background-color: #f2740b;-fx-text-fill: white; -fx-font: 14px Calibri; -fx-border-width: 1;-fx-border-color: #e36700;");
-        moderateButton.setStyle("-fx-background-color: #f2740b;-fx-text-fill: white; -fx-font: 14px Calibri;-fx-border-width: 1;-fx-border-color: #e36700;");
 
-        spawnCarButton.setStyle("-fx-background-color: #ffffff;-fx-text-fill: #1f3d7a; -fx-border-radius: 2; -fx-border-width: 1; -fx-border-color: #1f3d7a; -fx-font: 13px Calibri;");
-        spawnEmergencyButton.setStyle("-fx-background-color: #ffffff;-fx-text-fill: #1f3d7a; -fx-border-radius: 2; -fx-border-width: 1; -fx-border-color: #1f3d7a; -fx-font: 13px Calibri;");
-        spawnPedButton.setStyle("-fx-background-color: #ffffff;-fx-text-fill: #1f3d7a; -fx-border-radius: 2; -fx-border-width: 1; -fx-border-color: #1f3d7a; -fx-font: 13px Calibri;");
 
         resetButton.setStyle("-fx-background-color: #4775d1;-fx-text-fill: white; -fx-font: 14px Calibri;");
         walkFaster.setStyle("-fx-background-color: #4775d1;-fx-text-fill: white; -fx-font: 14px Calibri;");
@@ -143,38 +135,14 @@ public class Main extends Application {
         driveSlower.setStyle("-fx-background-color: #4775d1;-fx-text-fill: white; -fx-font: 14px Calibri;");
 
 
-        rushButton.setPrefSize(160, 30);
         malfunctionModeButton.setPrefSize(160, 30);
-        heavyButton.setPrefSize(160, 30);
-        moderateButton.setPrefSize(160, 30);
-        spawnCarButton.setPrefSize(160, 30);
-        spawnEmergencyButton.setPrefSize(160, 30);
-        spawnPedButton.setPrefSize(160, 30);
+
         resetButton.setPrefSize(160, 30);
 
         //Controller controller = new Controller(gc);
         //controller.start();
 
         // Handle button press actions
-        rushButton.setOnMousePressed(e -> {
-            //uncomment this if you want to see people spawn
-//            gh.startDrawingLeftObservation();
-//            gh.startDrawingRightObservation();
-//            gh.startDrawingTopObservation();
-            gh.changeGuestRate(45);
-        });
-        heavyButton.setOnMousePressed(e -> {
-            //controller.heavyMode(controlLabel);
-            //DayNight.DAY.setDay(true);
-            //controller.setTICSMode(TICSModes.DayMode);
-            gh.changeGuestRate(35);
-        });
-        moderateButton.setOnMousePressed(e -> {
-            //controller.moderateMode(controlLabel);
-            // DayNight.DAY.setDay(true);
-            //controller.setTICSMode(TICSModes.DayMode);
-            gh.changeGuestRate(20);
-        });
 
         malfunctionModeButton.setOnMousePressed(e -> {
             //controller.malfunctionMode(controlLabel);
@@ -190,24 +158,14 @@ public class Main extends Application {
         });
 
 
-        resetButton.setOnMousePressed(e -> {
-            //controller.reset();
-            carSpeedVal.setText("1");
-            pedSpeedVal.setText("1");
-            gh.resetAllGuests();
-            dino.reset();
-            gh.resetTime();
-        });
-
-
         // Setup the scene
         gpsPane.getChildren().addAll(gpsTitle,dinoLabel,dinoLocation,carTitleLabel,carLocation,carTitleLabel1,carLocation1,carTitleLabel2,carLocation2);
-        carSpeedBox.getChildren().addAll(carLabel, carSpeedVal, driveFaster, driveSlower);
-        pedSpeedBox.getChildren().addAll(pedLabel, pedSpeedVal, walkFaster, walkSlower);
         speedBox.getChildren().addAll(pedSpeedBox, carSpeedBox);
-        controlBox.getChildren().addAll(controlLabel, rushButton, heavyButton, moderateButton,
-                                        malfunctionModeButton, spawnCarButton, spawnEmergencyButton,
-                                        spawnPedButton, resetButton,gpsPane);
+        Region r = new Region();
+        r.setPrefSize(0,90);
+        controlBox.getChildren().addAll(r,malfunctionModeButton,  resetButton,gpsPane);
+        controlBox.setSpacing(50);
+        //controlBox.getChildren().addAll(r, malfunctionModeButton, resetButton);
         root.setRight(controlBox);
         root.setLeft(canvas);
 
