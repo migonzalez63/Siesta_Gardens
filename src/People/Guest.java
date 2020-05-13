@@ -133,21 +133,20 @@ public class Guest {
      */
     private void generateRandomWalk(String area) {
         Random random = new Random();
-        List<Direction> dirs =
-                new ArrayList<Direction>(EnumSet.allOf(Direction.class));
-        switch (dirs.get(random.nextInt(4))) {
-            case NORTH:
+        String[] directions = {"north","south","east","west"};
+        switch (directions[(random.nextInt(4))]) {
+            case "north":
                 this.y -= speed;
                 break;
-            case SOUTH:
+            case "south":
                 if(area.equals("top"))this.y += speed+1;
                 else this.y += speed;
                 break;
-            case EAST:
+            case "east":
                 if(area.equals("left"))this.x += speed+1;
                 else this.x += speed;
                 break;
-            case WEST:
+            case "west":
                 if(area.equals("right"))this.x -= speed+1;
                 else this.x -= speed;
                 break;
