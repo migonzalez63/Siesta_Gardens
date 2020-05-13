@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Deals with the drawing of the guests and related objects.
+ * Deals with the drawing of the guests and related objects. Here is where
+ * controller can interact with guests events.
  */
 public class GuestHandling {
     private List<GuestGraphic> leftViewing;

@@ -4,6 +4,9 @@ import Primary.Direction;
 
 import java.util.*;
 
+/**
+ * Logic for the guests walking and underlying components are here.
+ */
 public class Guest {
     private int x;
     private int y;
