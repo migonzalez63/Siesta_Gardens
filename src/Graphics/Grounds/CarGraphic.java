@@ -37,6 +37,8 @@ public class CarGraphic {
             //if there is an emergency, draw the regular x and y which are now
             // in cartesian form
             gc.fillRect(car.getX(),car.getY(), 20, 20);
+            car.setCartesianPoints( car.getX() , car.getY());
+
         }
     }
 

@@ -8,14 +8,13 @@ import Graphics.Grounds.ParkGrounds;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
@@ -48,8 +47,11 @@ public class Main extends Application {
         Rectangle dinoEnclosure = parkground.getDinoEnclosure();
         DinoGraphic dinoGraphic = new DinoGraphic(gc,dinoEnclosure,3,50);
         Dino dino = dinoGraphic.getDino();
-        CarGraphic car = new CarGraphic(gc,260,250,900,900, 170);
+        CarGraphic car = new CarGraphic(gc,260,250,0,-1, 170);
+        CarGraphic car1 = new CarGraphic(gc,260,250,1,0, 170);
+        CarGraphic car2 = new CarGraphic(gc,260,250,0,1, 170);
 
+        VBox gpsPane = new VBox();
         VBox controlBox = new VBox(20);
         HBox speedBox = new HBox(10);
         VBox pedSpeedBox = new VBox(10);
@@ -86,11 +88,44 @@ public class Main extends Application {
         carLabel.setFont(new Font("Serif", 12));
         Label carSpeedVal = new Label("1");
         carSpeedVal.setFont(new Font("Serif", 12));
+
+        Label gpsTitle = new Label("     GPS");
+        gpsTitle.setStyle("-fx-text-fill: white;-fx-font: 20px monospace;  -fx-alignment: center ;");
+        Label dinoLabel = new Label("Dinosaur Location");
+        dinoLabel.setStyle("-fx-text-fill: green;-fx-font: 14px monospace");
+        Label dinoLocation = new Label("");
+        dinoLocation.setStyle(";-fx-text-fill: white;-fx-font: 14px monospace ");
+
+
+        Label carTitleLabel = new Label("Car 1 Location");
+        carTitleLabel.setStyle("-fx-text-fill: green;-fx-font: 14px monospace");
+
+
+        Label carLocation = new Label("");
+        carLocation.setStyle(";-fx-text-fill: white;-fx-font: 14px monospace");
+
+
+        Label carTitleLabel1 = new Label("Car 2 Location");
+        carTitleLabel1.setStyle(";-fx-text-fill: green;-fx-font: 14px monospace");
+
+        Label carLocation1 = new Label("");
+        carLocation1.setStyle(";-fx-text-fill: white;-fx-font: 14px monospace");
+
+        Label carTitleLabel2 = new Label("Car 3 Location");
+        carTitleLabel2.setStyle("-fx-text-fill: green;-fx-font: 14px monospace");
+
+        Label carLocation2 = new Label("");
+        carLocation2.setStyle(";-fx-text-fill: white;-fx-font: 14px monospace");
+
+
+        carSpeedVal.setFont(new Font("Serif", 12));
+
         Button driveFaster = new Button("\u2191");
         Button driveSlower = new Button("\u2193");
 
 
-
+        gpsPane.setBackground(Background.EMPTY);
+        gpsPane.setStyle("-fx-background-color: #000000;");
 
         rushButton.setStyle("-fx-background-color: #f2740b;-fx-text-fill: white; -fx-font: 14px Calibri;-fx-border-width: 1;-fx-border-color: #e36700;");
         malfunctionModeButton.setStyle("-fx-background-color: red;-fx-text-fill: white; -fx-font: 14px Calibri; -fx-border-width: 1;-fx-border-color: black;");
@@ -149,6 +184,8 @@ public class Main extends Application {
             gh.interruptSpawning();
             dino.free();
             car.getCar().setEmergency();
+            car1.getCar().setEmergency();
+            car2.getCar().setEmergency();
             gh.resetTime();
         });
 
@@ -164,10 +201,13 @@ public class Main extends Application {
 
 
         // Setup the scene
+        gpsPane.getChildren().addAll(gpsTitle,dinoLabel,dinoLocation,carTitleLabel,carLocation,carTitleLabel1,carLocation1,carTitleLabel2,carLocation2);
         carSpeedBox.getChildren().addAll(carLabel, carSpeedVal, driveFaster, driveSlower);
         pedSpeedBox.getChildren().addAll(pedLabel, pedSpeedVal, walkFaster, walkSlower);
         speedBox.getChildren().addAll(pedSpeedBox, carSpeedBox);
-        controlBox.getChildren().addAll(controlLabel, rushButton, heavyButton, moderateButton,malfunctionModeButton, spawnCarButton, spawnEmergencyButton, spawnPedButton, resetButton, resultLabel, speedBox);
+        controlBox.getChildren().addAll(controlLabel, rushButton, heavyButton, moderateButton,
+                                        malfunctionModeButton, spawnCarButton, spawnEmergencyButton,
+                                        spawnPedButton, resetButton,gpsPane);
         root.setRight(controlBox);
         root.setLeft(canvas);
 
@@ -186,7 +226,13 @@ public class Main extends Application {
             public void handle(long now) {
                 parkground.drawGrounds(true);
                 dinoGraphic.drawDinosaur();
+                dinoLocation.setText("X: "+dino.getX()+" Y: "+dino.getY());
+                carLocation.setText("X: "+Math.floor(car.getCar().getCartesianX())+" Y: "+Math.floor(car.getCar().getCartesianX()));
+                carLocation1.setText("X: "+Math.floor(car1.getCar().getCartesianX())+" Y: "+Math.floor(car1.getCar().getCartesianX()));
+                carLocation2.setText("X: "+Math.floor(car2.getCar().getCartesianX())+" Y: "+Math.floor(car2.getCar().getCartesianX()));
                 car.drawCar();
+                car1.drawCar();
+                car2.drawCar();
             }
         }.start();
          primaryStage.setOnCloseRequest(event -> {

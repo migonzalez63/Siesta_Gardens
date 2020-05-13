@@ -160,7 +160,6 @@ public class Car implements Runnable{
 
 
     private void goEmergencyRoute(Direction parkingArea){
-        System.out.println("Cartesian X :" + cartesianX + "Cartesian Y " + cartesianY);
 
         switch (parkingArea) {
             case NORTH:
@@ -235,4 +234,11 @@ public class Car implements Runnable{
         return emergency;
     }
 
+    public double getCartesianX() {
+        return cartesianX;
+    }
+
+    public double getCartesianY() {
+        return cartesianY;
+    }
 }
