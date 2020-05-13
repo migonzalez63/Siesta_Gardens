@@ -15,35 +15,108 @@ public class Dino {
     private int size;
     private boolean isContained= true;
     private Rectangle walkingArea;
+    private Direction lastDirection;
+    private int directionSteps;
 
     public Dino(Rectangle walkingArea, int speed,int size){
         this.walkingArea = walkingArea;
         this.speed = speed;
         this.size = size;
+        this.directionSteps=0;
+        this.lastDirection=Direction.EAST;
         this.x =(int) (walkingArea.getX() + walkingArea.getWidth()/3);
         this.y =(int) (walkingArea.getY() + walkingArea.getHeight()/3);
 
     }
 
     public void randomWalk(){
-        Random random = new Random();
-        Direction[] directions = Direction.values();
-        Direction direction = directions[random.nextInt(directions.length)];
         int originalX = this.x;
         int originalY = this.y;
-        switch (direction){
-            case NORTH:
-                if(withinBounds(originalX, originalY-speed)) this.y -= speed;
-                break;
-            case SOUTH:
-                if(withinBounds(originalX, originalY+speed)) this.y += speed;
-                break;
-            case EAST:
-                if(withinBounds(originalX+speed, originalY)) this.x += speed;
-                break;
-            case WEST:
-                if(withinBounds(originalX-speed, originalY)) this.x -= speed;
-                break;
+        if (directionSteps==9){
+            Random random = new Random();
+            Direction[] directions = Direction.values();
+            Direction direction = directions[random.nextInt(directions.length)];
+            this.lastDirection=direction;
+            switch (direction){
+                case NORTH:
+                    if(withinBounds(originalX, originalY-speed)) this.y -= speed;
+                    break;
+                case EAST:
+                    if(withinBounds(originalX+speed, originalY)) this.x += speed;
+                    break;
+                case NORTHEAST:
+                    if (withinBounds(originalX, originalY-speed) && withinBounds(originalX+speed, originalY)){
+                        this.y-=speed;
+                        this.x +=speed;
+                    }
+                    break;
+                case SOUTH:
+                    if(withinBounds(originalX, originalY+speed)) this.y += speed;
+                    break;
+                case SOUTHEAST:
+                    if (withinBounds(originalX, originalY+speed) && withinBounds(originalX+speed, originalY)){
+                        this.y+=speed;
+                        this.x+=speed;
+                    }
+                    break;
+                case WEST:
+                    if(withinBounds(originalX-speed, originalY)) this.x -= speed;
+                    break;
+                case SOUTHWEST:
+                    if (withinBounds(originalX, originalY+speed) && withinBounds(originalX-speed, originalY)){
+                        this.y+=speed;
+                        this.x-=speed;
+                    }
+                    break;
+                case NORTHWEST:
+                    if (withinBounds(originalX, originalY-speed) && withinBounds(originalX-speed, originalY)){
+                        this.x-=speed;
+                        this.y-=speed;
+                    }
+                    break;
+            }
+            directionSteps=0;
+        }
+        else {
+            switch (lastDirection){
+                case NORTH:
+                    if(withinBounds(originalX, originalY-speed)) this.y -= speed;
+                    break;
+                case EAST:
+                    if(withinBounds(originalX+speed, originalY)) this.x += speed;
+                    break;
+                case NORTHEAST:
+                    if (withinBounds(originalX, originalY-speed) && withinBounds(originalX+speed, originalY)){
+                        this.y-=speed;
+                        this.x +=speed;
+                    }
+                    break;
+                case SOUTH:
+                    if(withinBounds(originalX, originalY+speed)) this.y += speed;
+                    break;
+                case SOUTHEAST:
+                    if (withinBounds(originalX, originalY+speed) && withinBounds(originalX+speed, originalY)){
+                        this.y+=speed;
+                        this.x+=speed;
+                    }
+                    break;
+                case WEST:
+                    if(withinBounds(originalX-speed, originalY)) this.x -= speed;
+                    break;
+                case SOUTHWEST:
+                    if (withinBounds(originalX, originalY+speed) && withinBounds(originalX-speed, originalY)){
+                        this.y+=speed;
+                        this.x-=speed;
+                    }
+                    break;
+                case NORTHWEST:
+                    if (withinBounds(originalX, originalY-speed) && withinBounds(originalX-speed, originalY)){
+                        this.x-=speed;
+                        this.y-=speed;
+                    }
+                    break;
+            }
+            directionSteps++;
         }
     }
     private  boolean withinBounds(int newX, int newY){

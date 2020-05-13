@@ -2,7 +2,12 @@ package Primary;
 
 public enum Direction {
     NORTH,
-    SOUTH,
+    NORTHEAST,
     EAST,
-    WEST
+    SOUTHEAST,
+    SOUTH,
+    SOUTHWEST,
+    WEST,
+    NORTHWEST
+
 }
