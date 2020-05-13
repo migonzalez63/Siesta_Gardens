@@ -1,7 +1,6 @@
 package Primary;
 
 import Graphics.Grounds.GuestGraphic;
-import People.Guest;
 import People.Spawner;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
@@ -26,7 +25,7 @@ public class GuestHandling {
     private Point rightParking = new Point(423,214);
     private Point topParking = new Point(270,100);
     private Point spawn = new Point(280,443);
-    private Point boardSpawn = new Point(350, spawn.y);
+    private Point boardSpawn = new Point(290, spawn.y);
     private Point exit = new Point(210,spawn.y);
     private AnimationTimer leftPark, rightPark, topPark, spawnPark, unboardPark;
     private Spawner spawner;
@@ -124,9 +123,9 @@ public class GuestHandling {
         else if(area.equals("right")) rightPark.stop();
         else if(area.equals("top")) topPark.stop();
         else{
-            leftPark.stop();
-            rightPark.stop();
-            topPark.stop();
+            if(leftPark!= null)leftPark.stop();
+            if(rightPark!=null)rightPark.stop();
+            if(topPark!=null)topPark.stop();
         }
 
         new AnimationTimer(){

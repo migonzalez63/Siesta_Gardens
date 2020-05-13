@@ -1,5 +1,6 @@
 package Car;
 import Primary.Direction;
+import Primary.GuestHandling;
 import javafx.scene.shape.Rectangle;
 import org.w3c.dom.css.Rect;
 /*todo:
@@ -35,17 +36,23 @@ public class Car implements Runnable{
     private int numPassengersPresent;
     private boolean emergency = false;
     private Direction parkingArea;
-    public Car(boolean locked, boolean moving, double x, double y, int speed) {
+    private GuestHandling gh;
+    private String lastRode;
+    public Car(boolean locked, boolean moving, double x, double y, int speed,
+               GuestHandling gh) {
         this.locked = locked;
         this.moving = moving;
         this.x = x;
         this.y = y;
         this.speed = speed;
+        this.gh = gh;
+        this.lastRode = "";
     }
 
     public boolean isMoving() { return moving; }
 
     public void setMoving(boolean moving) { this.moving = moving; }
+
 
     public boolean isLocked() { return locked; }
     public void setLocked(boolean locked) { this.locked = locked; }
@@ -95,37 +102,65 @@ public class Car implements Runnable{
 
             //Observation Areas in counter-clockwise order
             //First Observation Area
-            if(this.getX() > .999999 && this.getY() > -.0000001 && this.getY() < .0000001){
+            int maxRightRange = 432;
+            int minRightRange = 420;
+            if(Math.floor(cartesianX) >= minRightRange && Math.floor(cartesianX) <= maxRightRange && !lastRode.equals("right")){
+//            if((Math.floor(cartesianX) == Math.floor(429.9058495295867)  || Math.floor(cartesianY) == Math.floor(255.08435103741374)) && lastRode != "right"){
                 //stop car and unload passengers
+
                 this.parkingArea = Direction.EAST;
+                lastRode = "right";
+//                isParkedRight = true;
+                gh.startDrawingRightObservation();
+                pause(5000);
+//                isParkedRight = false;
+                gh.returnGuestsToVehicles("right");
                 pause();
-                System.out.println("Cartesian X :" + cartesianX + "Cartesian Y " + cartesianY);
-                System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
+                pause(2000);
             }
             //Second Observation Area
-            if(this.getY() < -.999999 && this.getX() > -.0000001 && this.getX() < .0000001){
+            int maxTopRange = 83;
+            int minTopRange = 77;
+            if(Math.floor(cartesianY) >= minTopRange && Math.floor(cartesianY)<=maxTopRange && !lastRode.equals("top")){
+//            if(this.getY() < -.999999 && this.getX() > -.0000001 && this.getX() < .0000001){
                 //stop car and unload passengers
                 this.parkingArea = Direction.NORTH;
+//                isParkedTop = true;
+                lastRode = "top";
+                gh.startDrawingTopObservation();
+                pause(5000);
+//                isParkedTop = false;
+                gh.returnGuestsToVehicles("top");
                 pause();
+                pause(2000);
 //                setEmergency();
 
-                System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
             }
             //Third Observation Area
-            if(this.getX() < -.999999 && this.getY() > -.0000001 && this.getY() < .0000001){
+            int maxLeftRange = 96;
+            int minLeftRange = 87;
+            if(Math.floor(cartesianX) >= minLeftRange && Math.floor(cartesianX) <= maxLeftRange && !lastRode.equals("left")){
                 //stop car and unload passengers
                 this.parkingArea = Direction.WEST;
+                lastRode = "left";
+                gh.startDrawingLeftObservation();
+                pause(5000);
+                gh.returnGuestsToVehicles("left");
                 pause();
-                System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
-
+                pause(2000);
             }
             //South parking Area/passenger area
+            int maxSpawnRange = 425;
+            int minSpawnRange = 405;
+            if(Math.floor(cartesianY) >= minSpawnRange && Math.floor(cartesianY) <= maxSpawnRange && !lastRode.equals("spawn"))
             if(this.getY() > .999999 && this.getX() > -.0000001 && this.getX() < .0000001){
                 //stop car and unload passengers
-
+                System.out.println("Boarding car x = "+cartesianX +" y = "+ cartesianY);
                 this.parkingArea = Direction.SOUTH;
-                pause();
-                System.out.println("x: " + this.getX() + ", y: " + this.getY() + " , moving: " + this.isMoving() + ", locked: " + this.isLocked());
+                lastRode = "spawn";
+                gh.startSpawning();
+                pause(8000);
+                pause(1500);
             }
 
         }else{
@@ -138,6 +173,18 @@ public class Car implements Runnable{
         //unload the pedestrians around here
         try {
             Thread.sleep(3000);
+        }catch (Exception e){
+            System.err.println(e);
+        }
+        this.locked = true;
+        this.moving = true;
+    }
+
+    private void pause(int waitTime){
+        this.stopCar();
+        //unload the pedestrians around here
+        try {
+            Thread.sleep(waitTime);
         }catch (Exception e){
             System.err.println(e);
         }

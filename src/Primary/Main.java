@@ -48,9 +48,9 @@ public class Main extends Application {
         Rectangle dinoEnclosure = parkground.getDinoEnclosure();
         DinoGraphic dinoGraphic = new DinoGraphic(gc,dinoEnclosure,3,50);
         Dino dino = dinoGraphic.getDino();
-        CarGraphic car = new CarGraphic(gc,260,250,0,-1, 170);
-        CarGraphic car1 = new CarGraphic(gc,260,250,1,0, 170);
-        CarGraphic car2 = new CarGraphic(gc,260,250,0,1, 170);
+        CarGraphic car = new CarGraphic(gc,260,250,0,-1, 170,gh);
+        CarGraphic car1 = new CarGraphic(gc,260,250,1,0, 170,gh);
+        CarGraphic car2 = new CarGraphic(gc,260,250,0,1, 170,gh);
 
         VBox gpsPane = new VBox();
         VBox controlBox = new VBox(20);

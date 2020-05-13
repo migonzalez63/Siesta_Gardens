@@ -1,6 +1,8 @@
 package Graphics.Grounds;
 
 import Car.Car;
+import Primary.GuestHandling;
+import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -13,15 +15,18 @@ public class CarGraphic {
     private int xOffset;
     private int yOffset;
     private Thread carThread;
-    public CarGraphic(GraphicsContext gc, int xOffset, int yOffset, int unitX, int unitY, int movingRadius){
+    public CarGraphic(GraphicsContext gc, int xOffset, int yOffset, int unitX
+            , int unitY, int movingRadius, GuestHandling gh){
         this.gc = gc;
         this.movingRadius = movingRadius;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
-        this.car = new Car(true,true,unitX,unitY,1);
+        this.car = new Car(true,true,unitX,unitY,1,gh);
         this.carThread =new Thread(car);
         carThread.start();
     }
+
+
 
     public void drawCar(){
 //        car.beginRoute();
