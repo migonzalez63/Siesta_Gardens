@@ -183,6 +183,10 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 parkground.drawGrounds(true);
+                //Debugging invisible dino enclosure
+                gc.setStroke(Color.BLACK);
+                gc.strokeRect(dinoEnclosure.getX(), dinoEnclosure.getY(), dinoEnclosure.getWidth(),dinoEnclosure.getHeight());
+
                 dinoGraphic.drawDinosaur();
                 dinoLocation.setText("X: "+dino.getX()+" Y: "+dino.getY());
                 carLocation.setText("X: "+Math.floor(car.getCar().getCartesianX())+" Y: "+Math.floor(car.getCar().getCartesianX()));

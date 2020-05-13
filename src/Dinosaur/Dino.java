@@ -122,14 +122,14 @@ public class Dino {
     private  boolean withinBounds(int newX, int newY){
 
 
-        if(!isContained) return  true;
+        if(!isContained) return  false;
         //checks whether the point is within the rectange inside the animal enclosure
         int dinoBoundsX = newX + size;
         int dinoBoundsY = newY + size;
         double maxX = walkingArea.getX() + walkingArea.getWidth();
         double maxY = walkingArea.getY() + walkingArea.getHeight();
-        double minX = walkingArea.getX();
-        double minY = walkingArea.getY();
+        double minX = walkingArea.getX()+size;
+        double minY = walkingArea.getY()+size;
         return  (dinoBoundsX > minX && dinoBoundsY > minY && dinoBoundsX < maxX && dinoBoundsY < maxY );
     }
     public int getX() {
