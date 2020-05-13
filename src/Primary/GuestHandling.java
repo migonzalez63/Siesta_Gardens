@@ -2,6 +2,7 @@ package Primary;
 
 import Graphics.Grounds.GuestGraphic;
 import People.Guest;
+import People.Spawner;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -21,14 +22,14 @@ public class GuestHandling {
     private GuestGraphic newSpawn,unboardSpawn;
     private GraphicsContext gc;
     private final int carMax = 10;
-    private final int spawnTime = 500;
     private Point leftParking = new Point(140,214);
     private Point rightParking = new Point(423,214);
     private Point topParking = new Point(270,100);
     private Point spawn = new Point(280,443);
     private Point boardSpawn = new Point(350, spawn.y);
     private Point exit = new Point(210,spawn.y);
-    private AnimationTimer leftPark, rightPark, topPark, spawnPark,unboardPark;
+    private AnimationTimer leftPark, rightPark, topPark, spawnPark, unboardPark;
+    private Spawner spawner;
 
 
     public GuestHandling(GraphicsContext gc){
@@ -39,11 +40,38 @@ public class GuestHandling {
         this.newSpawn = new GuestGraphic(gc, boardSpawn.x, boardSpawn.y,
                 "spawn");
         this.unboardSpawn = new GuestGraphic(gc, spawn.x, spawn.y,"exit");
+        //default is 25
+        this.spawner = new Spawner(20);
         initialize();
     }
 
     /**
-     * Handles drawing of guest walking around left observation area.
+     * Used in button presses to change amount of guests spawning.
+     * @param avgRate
+     */
+    public void changeGuestRate(int avgRate){
+        spawner.setSpawnRate(avgRate);
+    }
+
+    /**
+     * Use this on traffic change to see how fast a mode is.
+     * @return String showing avg wait time.
+     */
+    public String guestStatistics(){
+        return spawner.message();
+    }
+
+    /**
+     * Should invoke on emergency or reset.
+     */
+    public void resetTime(){
+        spawner.resetTime();
+    }
+
+
+    /**
+     * Handles drawing of guest walking around left observation area. Invoke
+     * this when car parks in left spot.
      */
     public void startDrawingLeftObservation(){
         leftPark = new  AnimationTimer(){
@@ -56,7 +84,8 @@ public class GuestHandling {
     }
 
     /**
-     * Handles drawing of guest walking around right observation area.
+     * Handles drawing of guest walking around right observation area. Invoke
+     * this when car parks at right spot.
      */
     public void startDrawingRightObservation(){
         rightPark = new  AnimationTimer(){
@@ -69,7 +98,8 @@ public class GuestHandling {
     }
 
     /**
-     * Handles drawing of guest walking around top observation area.
+     * Handles drawing of guest walking around top observation area. Invoke
+     * this when car parks in top spot.
      */
     public void startDrawingTopObservation(){
        topPark = new AnimationTimer(){
@@ -125,9 +155,11 @@ public class GuestHandling {
     }
 
     /**
-     * Draws people boarding the vehicle at the spawn point.
+     * Draws people boarding the vehicle at the spawn point. Invoke this when
+     * car is at boarding area.
      */
     public void startSpawning(){
+        trackTimeBoarding();
        spawnPark = new AnimationTimer(){
             int x = 0;
             @Override
@@ -145,7 +177,8 @@ public class GuestHandling {
     }
 
     /**
-     * Draws people exiting the vehicle at the spawn point.
+     * Draws people exiting the vehicle at the spawn point. Invoke this first
+     * before startSpawning() if we plan on doing unboarding.
      */
     public void startUnboarding(){
         unboardPark = new AnimationTimer() {
@@ -203,6 +236,18 @@ public class GuestHandling {
                 g.resetGuestLoc(topParking.x, topParking.y);
             }
         }
+    }
+
+
+    /************************************************
+     * Private methods here
+     ************************************************/
+
+    /**
+     * Invoke this when guests are boarding.
+     */
+    private void trackTimeBoarding(){
+        spawner.setWaitTime(10);
     }
 
     /**

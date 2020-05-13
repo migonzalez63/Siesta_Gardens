@@ -4,9 +4,7 @@ import Car.Car;
 import Dinosaur.Dino;
 import Graphics.Grounds.CarGraphic;
 import Graphics.Grounds.DinoGraphic;
-import Graphics.Grounds.GuestGraphic;
 import Graphics.Grounds.ParkGrounds;
-import People.Guest;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -50,12 +48,7 @@ public class Main extends Application {
         Rectangle dinoEnclosure = parkground.getDinoEnclosure();
         DinoGraphic dinoGraphic = new DinoGraphic(gc,dinoEnclosure,3,50);
         Dino dino = dinoGraphic.getDino();
-        CarGraphic car = new CarGraphic(gc,260,250,0,-1, 170);
-        CarGraphic car1 = new CarGraphic(gc,260,250,1,0, 170);
-        CarGraphic car2 = new CarGraphic(gc,260,250,0,1, 170);
-
-//        CarGraphic car1 = new CarGraphic(gc,260,250,900,900, 170);
-//        CarGraphic car2 = new CarGraphic(gc,330,0,900,900, 170);
+        CarGraphic car = new CarGraphic(gc,260,250,900,900, 170);
 
         VBox controlBox = new VBox(20);
         HBox speedBox = new HBox(10);
@@ -133,16 +126,19 @@ public class Main extends Application {
 //            gh.startDrawingLeftObservation();
 //            gh.startDrawingRightObservation();
 //            gh.startDrawingTopObservation();
+            gh.changeGuestRate(45);
         });
         heavyButton.setOnMousePressed(e -> {
             //controller.heavyMode(controlLabel);
             //DayNight.DAY.setDay(true);
             //controller.setTICSMode(TICSModes.DayMode);
+            gh.changeGuestRate(35);
         });
         moderateButton.setOnMousePressed(e -> {
             //controller.moderateMode(controlLabel);
             // DayNight.DAY.setDay(true);
             //controller.setTICSMode(TICSModes.DayMode);
+            gh.changeGuestRate(20);
         });
 
         malfunctionModeButton.setOnMousePressed(e -> {
@@ -153,8 +149,7 @@ public class Main extends Application {
             gh.interruptSpawning();
             dino.free();
             car.getCar().setEmergency();
-            car1.getCar().setEmergency();
-            car2.getCar().setEmergency();
+            gh.resetTime();
         });
 
 
@@ -164,6 +159,7 @@ public class Main extends Application {
             pedSpeedVal.setText("1");
             gh.resetAllGuests();
             dino.reset();
+            gh.resetTime();
         });
 
 
@@ -191,9 +187,7 @@ public class Main extends Application {
                 parkground.drawGrounds(true);
                 dinoGraphic.drawDinosaur();
                 car.drawCar();
-                car1.drawCar();
-                car2.drawCar();
-                }
+            }
         }.start();
          primaryStage.setOnCloseRequest(event -> {
             System.exit(0);
