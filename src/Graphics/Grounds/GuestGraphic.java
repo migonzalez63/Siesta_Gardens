@@ -4,7 +4,9 @@ import People.Guest;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-
+/**
+ * Handles main drawing of guests.
+ */
 public class GuestGraphic {
     private Guest guest;
     private GraphicsContext gc;
