@@ -150,8 +150,8 @@ public class Main extends Application {
             gh.interruptSpawning();
             dino.free();
             car.getCar().setEmergency();
-            car1.getCar().setEmergency();
-            car2.getCar().setEmergency();
+           // car1.getCar().setEmergency();
+           // car2.getCar().setEmergency();
         });
 
         resetButton.setOnMousePressed(e -> {

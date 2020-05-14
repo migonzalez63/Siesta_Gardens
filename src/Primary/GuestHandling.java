@@ -24,7 +24,7 @@ public class GuestHandling {
     private Point topParking = new Point(270,100);
     private Point spawn = new Point(280,443);
     private Point boardSpawn = new Point(290, spawn.y);
-    private Point exit = new Point(210,spawn.y);
+    private Point exit = new Point(240,spawn.y);
     private AnimationTimer leftPark, rightPark, topPark, spawnPark, unboardPark;;
 
 
@@ -159,7 +159,7 @@ public class GuestHandling {
             public void handle(long now) {
                 unboardSpawn.walkToPointDraw(exit.x, exit.y);
                 if(unboardSpawn.readytoDespawn()){
-                    unboardSpawn.resetGuestLoc(spawn.x, spawn.y);
+                    unboardSpawn.resetGuestLoc(spawn.x-20, spawn.y);
                     clearExit();
                     x++;
                 }

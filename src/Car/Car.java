@@ -159,6 +159,8 @@ public class Car implements Runnable{
 //                System.out.println("Boarding car x = "+cartesianX +" y = "+ cartesianY);
                 this.parkingArea = Direction.SOUTH;
                 lastRode = "spawn";
+                gh.startUnboarding();
+                pause(8000);
                 gh.startSpawning();
                 pause(8000);
                 pause(1500);
@@ -233,8 +235,11 @@ public class Car implements Runnable{
             this.x -= 1;
         } else {
             //Go down to the Pier
-            if (this.getY() <= 450) {
+            if (this.getY() < 450) {
                 this.y += 1;
+            }
+            else {
+
             }
         }
     }

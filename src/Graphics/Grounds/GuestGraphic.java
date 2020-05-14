@@ -17,7 +17,7 @@ public class GuestGraphic {
         this.gc = gc;
         this.area = area;
         if(area.equals("spawn")) guest = new Guest(x,y,2,280,443);
-        else if(area.equals("exit")) guest = new Guest(x,y,2,210,443);
+        else if(area.equals("exit")) guest = new Guest(x,y,2,240,443);
         else guest = new Guest(x,y, 1, x, y);
     }
 
