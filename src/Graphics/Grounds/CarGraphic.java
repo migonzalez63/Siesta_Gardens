@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 public class CarGraphic {
     private Car car;
     private GraphicsContext gc;
+    private GuestHandling gh;
     private int circleWidth,circleHeight = 150;
     private int movingRadius;
     private int xOffset;
@@ -17,6 +18,7 @@ public class CarGraphic {
     private Thread carThread;
     public CarGraphic(GraphicsContext gc, int xOffset, int yOffset, int unitX
             , int unitY, int movingRadius, GuestHandling gh){
+        this.gh = gh;
         this.gc = gc;
         this.movingRadius = movingRadius;
         this.xOffset = xOffset;
@@ -53,6 +55,12 @@ public class CarGraphic {
 //            car.setCartesianPoints( car.getX() , car.getY());
 
         }
+    }
+
+    public void reset() {
+        car = new Car(true,true,0,-1,1,gh);
+        this.carThread =new Thread(car);
+        carThread.start();
     }
 
     public Car getCar() {
