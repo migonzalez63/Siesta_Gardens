@@ -1,8 +1,6 @@
 package Dinosaur;
 
 import Primary.Direction;
-import javafx.geometry.Bounds;
-import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Random;
@@ -15,12 +13,14 @@ public class Dino {
     private int size;
     private boolean isContained= true;
     private Rectangle walkingArea;
+    private Rectangle initialWalkingArea;
     private Direction lastDirection;
     private int directionSteps;
     private int emergencyAreaBorder;
 
     public Dino(Rectangle walkingArea, int speed,int size){
         this.walkingArea = walkingArea;
+        this.initialWalkingArea = walkingArea;
         this.speed = speed;
         this.size = size;
         this.directionSteps=0;
@@ -158,9 +158,13 @@ public class Dino {
     }
     public void reset() {
         this.isContained = false;
-        this.walkingArea=new Rectangle(walkingArea.getX()+emergencyAreaBorder,
-                walkingArea.getY()+emergencyAreaBorder,walkingArea.getWidth()-(2*emergencyAreaBorder),
-                walkingArea.getHeight()-(2*emergencyAreaBorder));
+//        this.walkingArea=new Rectangle(walkingArea.getX()+emergencyAreaBorder,
+//                walkingArea.getY()+emergencyAreaBorder,walkingArea.getWidth()-(2*emergencyAreaBorder),
+//                walkingArea.getHeight()-(2*emergencyAreaBorder));
+//        this.x =(int) (walkingArea.getX() + walkingArea.getWidth()/3);
+//        this.y =(int) (walkingArea.getY() + walkingArea.getHeight()/3);
+
+        this.walkingArea = new Rectangle(initialWalkingArea.getX(), initialWalkingArea.getY(), initialWalkingArea.getWidth(), initialWalkingArea.getHeight());
         this.x =(int) (walkingArea.getX() + walkingArea.getWidth()/3);
         this.y =(int) (walkingArea.getY() + walkingArea.getHeight()/3);
 
