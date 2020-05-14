@@ -102,17 +102,17 @@ public class Main extends Application {
         carLocation.setStyle(";-fx-text-fill: white;-fx-font: 14px monospace");
 
 
-        Label carTitleLabel1 = new Label("Car 2 Location");
-        carTitleLabel1.setStyle(";-fx-text-fill: green;-fx-font: 14px monospace");
+//        Label carTitleLabel1 = new Label("Car 2 Location");
+//        carTitleLabel1.setStyle(";-fx-text-fill: green;-fx-font: 14px monospace");
 
-        Label carLocation1 = new Label("");
-        carLocation1.setStyle(";-fx-text-fill: white;-fx-font: 14px monospace");
+//        Label carLocation1 = new Label("");
+//        carLocation1.setStyle(";-fx-text-fill: white;-fx-font: 14px monospace");
 
-        Label carTitleLabel2 = new Label("Car 3 Location");
-        carTitleLabel2.setStyle("-fx-text-fill: green;-fx-font: 14px monospace");
+//        Label carTitleLabel2 = new Label("Car 3 Location");
+//        carTitleLabel2.setStyle("-fx-text-fill: green;-fx-font: 14px monospace");
 
-        Label carLocation2 = new Label("");
-        carLocation2.setStyle(";-fx-text-fill: white;-fx-font: 14px monospace");
+//        Label carLocation2 = new Label("");
+//        carLocation2.setStyle(";-fx-text-fill: white;-fx-font: 14px monospace");
 
 
         carSpeedVal.setFont(new Font("Serif", 12));
@@ -145,7 +145,6 @@ public class Main extends Application {
 
         malfunctionModeButton.setOnMousePressed(e -> {
             parkEmergency.set(true);
-//            bh.emergency();
             gh.returnGuestsToVehicles("all");
             gh.interruptSpawning();
             dino.free();
@@ -167,7 +166,9 @@ public class Main extends Application {
 
 
         // Setup the scene
-        gpsPane.getChildren().addAll(gpsTitle,dinoLabel,dinoLocation,carTitleLabel,carLocation,carTitleLabel1,carLocation1,carTitleLabel2,carLocation2);
+        gpsPane.getChildren().addAll(gpsTitle,dinoLabel,dinoLocation,
+                carTitleLabel,carLocation);
+//        gpsPane.getChildren().addAll(gpsTitle,dinoLabel,dinoLocation,carTitleLabel,carLocation,carTitleLabel1,carLocation1,carTitleLabel2,carLocation2);
         speedBox.getChildren().addAll(pedSpeedBox, carSpeedBox);
         Region r = new Region();
         r.setPrefSize(0,90);

@@ -35,7 +35,7 @@ public class GuestHandling {
         this.rightViewing = new ArrayList<>();
         this.newSpawn = new GuestGraphic(gc, boardSpawn.x, boardSpawn.y,
                 "spawn");
-        this.unboardSpawn = new GuestGraphic(gc, spawn.x, spawn.y,"exit");
+        this.unboardSpawn = new GuestGraphic(gc, spawn.x - 20, spawn.y,"exit");
         initialize();
     }
 
