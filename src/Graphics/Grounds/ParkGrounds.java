@@ -5,16 +5,16 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.awt.*;
-
 public class ParkGrounds {
 
     private final GraphicsContext gc;
     private final Canvas canvas;
+    private boolean lightningSymbol;
 
     public ParkGrounds(GraphicsContext gc, Canvas canvas){
         this.gc = gc;
         this.canvas=canvas;
+        lightningSymbol=true;
     }
 
     public void drawGrounds(boolean emergency){
@@ -134,10 +134,33 @@ public class ParkGrounds {
         gc.fillRect(250,100,
                 60,55);
 
+        // Add cameras to enclosure
+        Image parkCamera = new Image("/images/leftFacingCamera.png");
+        gc.drawImage(parkCamera,190,250, 30, 30);
+        Image parkCamera2 = new Image("/images/rightFacingCamera.png");
+        gc.drawImage(parkCamera2,350,250, 30, 30);
+        Image parkCamera3 = new Image("/images/downwardFacingCamera.png");
+        gc.drawImage(parkCamera3,270,150, 30, 30);
+
+
+
+
         if (emergency){
+            //Draw two boats
             Image boatImage = new Image("/images/boat.png");
             gc.drawImage(boatImage,0,canvas.getHeight()-55, 100, 50);
             gc.drawImage(boatImage,canvas.getWidth()-100,canvas.getHeight()-55, 100, 50);
+
+            //Draw the alarms going off
+
+            //Draw the ligtning bolt symbol blinking
+            Image lightning = new Image("/images/lightning.png");
+            lightningSymbol= !lightningSymbol;
+            gc.setFill(Color.BLACK);
+            gc.fillRect(370, 300, 30, 30);
+            if (lightningSymbol){
+                gc.drawImage(lightning,370, 300, 30, 30);
+            }
         }
     }
 

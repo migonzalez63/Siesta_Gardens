@@ -20,8 +20,6 @@ public class DinoGraphic {
         dino.randomWalk();
         Image dinoImage = new Image("/images/dinosaur.png");
         gc.drawImage(dinoImage,dino.getX(),dino.getY(),size,size);
-        //debugging invisible dinosaur rectangle
-        gc.strokeRect(dino.getX(),dino.getY(),size,size);
     }
 
     public Dino getDino() {

@@ -162,6 +162,7 @@ public class Main extends Application {
             dino.reset();
 //            bh.reset();
             parkEmergency.set(false);
+
         });
 
 
@@ -187,12 +188,6 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 parkground.drawGrounds(parkEmergency.get());
-                //Debugging invisible dino enclosure
-                gc.setStroke(Color.BLACK);
-                gc.strokeRect(dinoGraphic.getDino().getWalkingArea().getX(),
-                        dinoGraphic.getDino().getWalkingArea().getY(),
-                        dinoGraphic.getDino().getWalkingArea().getWidth(),
-                        dinoGraphic.getDino().getWalkingArea().getHeight());
 
                 dinoGraphic.drawDinosaur();
                 dinoLocation.setText("X: "+dino.getX()+" Y: "+dino.getY());

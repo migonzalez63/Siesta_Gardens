@@ -34,7 +34,7 @@ public class Dino {
     public void randomWalk(){
         int originalX = this.x;
         int originalY = this.y;
-        if (directionSteps==9){
+        if (isContained && directionSteps==9){
             Random random = new Random();
             Direction[] directions = Direction.values();
             Direction direction = directions[random.nextInt(directions.length)];
@@ -80,6 +80,10 @@ public class Dino {
             directionSteps=0;
         }
         else {
+            if (directionSteps == 15) {
+                directionSteps=0;
+                }
+
             switch (lastDirection){
                 case NORTH:
                     if(withinBounds(originalX, originalY-speed)) this.y -= speed;
