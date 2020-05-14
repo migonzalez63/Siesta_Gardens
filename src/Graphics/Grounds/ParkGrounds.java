@@ -125,10 +125,10 @@ public class ParkGrounds {
 
         // Left Parking Space
         gc.setFill(Color.rgb(100, 118, 135));
-        gc.fillRect(140,195,
+        gc.fillRect(140,210,
                 55,60);
         // Right Parking Space
-        gc.fillRect(375,195,
+        gc.fillRect(375,210,
                 55,60);
         // Top Parking Space
         gc.fillRect(250,100,

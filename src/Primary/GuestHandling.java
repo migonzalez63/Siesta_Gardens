@@ -19,14 +19,13 @@ public class GuestHandling {
     private GuestGraphic newSpawn,unboardSpawn;
     private GraphicsContext gc;
     private final int carMax = 10;
-    private Point leftParking = new Point(140,214);
-    private Point rightParking = new Point(423,214);
+    private Point leftParking = new Point(140,229);
+    private Point rightParking = new Point(423,229);
     private Point topParking = new Point(270,100);
     private Point spawn = new Point(280,443);
     private Point boardSpawn = new Point(290, spawn.y);
     private Point exit = new Point(210,spawn.y);
-    private AnimationTimer leftPark, rightPark, topPark, spawnPark, unboardPark;
-    private BeaconHandling bh;
+    private AnimationTimer leftPark, rightPark, topPark, spawnPark, unboardPark;;
 
 
     public GuestHandling(GraphicsContext gc){
@@ -279,7 +278,7 @@ public class GuestHandling {
      */
     private void redrawLeftParking(){
         gc.setFill(Color.rgb(100, 118, 135));
-        gc.fillRect(140,195,
+        gc.fillRect(140,210,
                 55,60);
     }
 
@@ -290,7 +289,7 @@ public class GuestHandling {
     private void redrawRightParking(){
         gc.setFill(Color.rgb(100, 118, 135));
 
-        gc.fillRect(375,195,
+        gc.fillRect(375,210,
                 55,60);
     }
 

@@ -1,7 +1,6 @@
 package Primary;
 
 import Dinosaur.Dino;
-import Graphics.Grounds.Beacon;
 import Graphics.Grounds.CarGraphic;
 import Graphics.Grounds.DinoGraphic;
 import Graphics.Grounds.ParkGrounds;
@@ -192,11 +191,11 @@ public class Main extends Application {
                 dinoGraphic.drawDinosaur();
                 dinoLocation.setText("X: "+dino.getX()+" Y: "+dino.getY());
                 carLocation.setText("X: "+Math.floor(car.getCar().getCartesianX())+" Y: "+Math.floor(car.getCar().getCartesianX()));
-                carLocation1.setText("X: "+Math.floor(car1.getCar().getCartesianX())+" Y: "+Math.floor(car1.getCar().getCartesianX()));
-                carLocation2.setText("X: "+Math.floor(car2.getCar().getCartesianX())+" Y: "+Math.floor(car2.getCar().getCartesianX()));
+//                carLocation1.setText("X: "+Math.floor(car1.getCar().getCartesianX())+" Y: "+Math.floor(car1.getCar().getCartesianX()));
+//                carLocation2.setText("X: "+Math.floor(car2.getCar().getCartesianX())+" Y: "+Math.floor(car2.getCar().getCartesianX()));
                 car.drawCar();
-                car1.drawCar();
-                car2.drawCar();
+//                car1.drawCar();
+//                car2.drawCar();
                 //Handles flashing
                 bh.drawNormal();
                 if(x%20 == 0 && parkEmergency.get()){

@@ -47,6 +47,7 @@ public class Car implements Runnable{
         this.speed = speed;
         this.gh = gh;
         this.lastRode = "";
+        this.parkingArea = Direction.SOUTH;
     }
 
     public boolean isMoving() { return moving; }
@@ -155,7 +156,7 @@ public class Car implements Runnable{
             if(Math.floor(cartesianY) >= minSpawnRange && Math.floor(cartesianY) <= maxSpawnRange && !lastRode.equals("spawn"))
             if(this.getY() > .999999 && this.getX() > -.0000001 && this.getX() < .0000001){
                 //stop car and unload passengers
-                System.out.println("Boarding car x = "+cartesianX +" y = "+ cartesianY);
+//                System.out.println("Boarding car x = "+cartesianX +" y = "+ cartesianY);
                 this.parkingArea = Direction.SOUTH;
                 lastRode = "spawn";
                 gh.startSpawning();

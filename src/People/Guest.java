@@ -85,7 +85,7 @@ public class Guest {
                 areaHeight = 60;
 
                 minX = 140;
-                minY =  195;
+                minY =  210;
                 maxX = minX + areaWidth;
                 maxY = minY + areaHeight;
 
@@ -98,7 +98,7 @@ public class Guest {
                 areaHeight = 60;
 
                 minX = 380;
-                minY = 195;
+                minY = 210;
                 maxX = minX + areaWidth;
                 maxY = minY + areaHeight;
 
