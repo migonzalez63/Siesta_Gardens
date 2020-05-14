@@ -159,6 +159,7 @@ public class Main extends Application {
             gh.resetAllGuests();
             dino.reset();
             parkEmergency.set(false);
+            car.reset();
 
         });
 
