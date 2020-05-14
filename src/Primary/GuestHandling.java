@@ -182,11 +182,27 @@ public class GuestHandling {
     }
 
     /**
+     * Used when guests are unboarding and reset button is pressed.
+     */
+    private void interruptUnboarding(){
+        if(unboardPark != null) {
+            unboardPark.stop();
+        }
+        unboardSpawn.resetGuestLoc(spawn.x-20,spawn.y);
+        gc.setFill(Color.DIMGREY);
+        int x = unboardSpawn.getGuest().getX();
+        int y = unboardSpawn.getGuest().getY();
+        gc.fillRect(x, y,6,6);
+
+    }
+
+    /**
      * Used when reset button is pressed. Resets all guests to default
      * starting points and stops all timers drawing them.
      */
     public void resetAllGuests(){
         interruptSpawning();
+        interruptUnboarding();
         if(leftPark!=null){
             leftPark.stop();
             redrawLeftParking();

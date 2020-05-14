@@ -158,7 +158,6 @@ public class Main extends Application {
             pedSpeedVal.setText("1");
             gh.resetAllGuests();
             dino.reset();
-//            bh.reset();
             parkEmergency.set(false);
 
         });

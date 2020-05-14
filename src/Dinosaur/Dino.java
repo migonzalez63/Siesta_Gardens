@@ -34,7 +34,7 @@ public class Dino {
     public void randomWalk(){
         int originalX = this.x;
         int originalY = this.y;
-        if (isContained && directionSteps==9){
+        if (directionSteps==9){
             Random random = new Random();
             Direction[] directions = Direction.values();
             Direction direction = directions[random.nextInt(directions.length)];
@@ -83,7 +83,6 @@ public class Dino {
             if (directionSteps == 15) {
                 directionSteps=0;
                 }
-
             switch (lastDirection){
                 case NORTH:
                     if(withinBounds(originalX, originalY-speed)) this.y -= speed;
@@ -131,7 +130,8 @@ public class Dino {
 //                    walkingArea.getY()+emergencyAreaBorder, walkingArea.getWidth()+emergencyAreaBorder,
 //                    walkingArea.getHeight()+emergencyAreaBorder);
 //        }
-        //checks whether the point is within the rectange inside the animal enclosure
+        //checks whether the point is within the rectangle inside the animal
+        // enclosure
         int dinoBoundsX = newX + size;
         int dinoBoundsY = newY + size;
         double maxX = walkingArea.getX() + walkingArea.getWidth();
@@ -158,8 +158,9 @@ public class Dino {
         walkingArea= new Rectangle(walkingArea.getX()-emergencyAreaBorder,
                 walkingArea.getY()-emergencyAreaBorder, walkingArea.getWidth()+(2*emergencyAreaBorder),
                 walkingArea.getHeight()+(2*emergencyAreaBorder));
-
     }
+
+
     public void reset() {
         this.isContained = false;
 //        this.walkingArea=new Rectangle(walkingArea.getX()+emergencyAreaBorder,
