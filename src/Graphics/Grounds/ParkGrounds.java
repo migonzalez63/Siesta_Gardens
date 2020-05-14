@@ -140,7 +140,8 @@ public class ParkGrounds {
         Image parkCamera2 = new Image("/images/rightFacingCamera.png");
         gc.drawImage(parkCamera2,350,250, 30, 30);
         Image parkCamera3 = new Image("/images/downwardFacingCamera.png");
-        gc.drawImage(parkCamera3,270,150, 30, 30);
+        gc.drawImage(parkCamera3,265,170, 30, 30);
+
 
 
 
@@ -152,6 +153,10 @@ public class ParkGrounds {
             gc.drawImage(boatImage,canvas.getWidth()-100,canvas.getHeight()-55, 100, 50);
 
             //Draw the alarms going off
+            Image alarmOn = new Image("/images/alarmOn.png");
+            gc.drawImage(alarmOn,208,230, 20, 20);
+            gc.drawImage(alarmOn,347,235, 20, 20);
+            gc.drawImage(alarmOn,285,165, 20, 20);
 
             //Draw the ligtning bolt symbol blinking
             Image lightning = new Image("/images/lightning.png");
@@ -161,6 +166,13 @@ public class ParkGrounds {
             if (lightningSymbol){
                 gc.drawImage(lightning,370, 300, 30, 30);
             }
+        }
+        else {
+            //Add alarms
+            Image alarmOff = new Image("/images/alarmOff.png");
+            gc.drawImage(alarmOff,215,230, 20, 20);
+            gc.drawImage(alarmOff,347,235, 20, 20);
+            gc.drawImage(alarmOff,285,165, 20, 20);
         }
     }
 

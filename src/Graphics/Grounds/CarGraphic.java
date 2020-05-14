@@ -40,11 +40,15 @@ public class CarGraphic {
             gc.drawImage(carImage,xOffset + car.getX() * this.movingRadius,yOffset + car.getY() * this.movingRadius,20,30);
            // gc.fillRect(xOffset + car.getX() * this.movingRadius, yOffset + car.getY() * this.movingRadius, 20, 20);
             car.setCartesianPoints(xOffset + car.getX() * this.movingRadius,yOffset + car.getY() * this.movingRadius);
-
+            Image alarmImage = new Image("/images/alarmOff.png");
+            gc.drawImage(alarmImage,xOffset + car.getX() * this.movingRadius+15,yOffset + car.getY() * this.movingRadius+15,20,20);
         }else {
             //if there is an emergency, draw the regular x and y which are now
             // in cartesian form
             gc.drawImage(carImage,car.getX(),car.getY(),20,30);
+            Image alarmImage = new Image("/images/alarmOn.png");
+            gc.drawImage(alarmImage,car.getX()+15,car.getY()+15,20,20);
+
 //            gc.fillRect(car.getX(),car.getY(), 20, 20);
 //            car.setCartesianPoints( car.getX() , car.getY());
 
