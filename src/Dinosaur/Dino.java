@@ -171,6 +171,8 @@ public class Dino {
         this.walkingArea = new Rectangle(initialWalkingArea.getX(), initialWalkingArea.getY(), initialWalkingArea.getWidth(), initialWalkingArea.getHeight());
         this.x =(int) (walkingArea.getX() + walkingArea.getWidth()/3);
         this.y =(int) (walkingArea.getY() + walkingArea.getHeight()/3);
+        this.directionSteps=0;
+        this.isContained=true;
 
     }
 
